@@ -15,23 +15,28 @@ public class Planet
     public int production;
     public int defense;
     public int science;
+    private String name;
     private int color = Color.rgb(200, 200, 200);
     private ArrayList<Improvement> improvements = new ArrayList<Improvement>();
     private Troop troop;
     //TO DO CHANGE DEFAULT PRODUCTION
     private CurrentProduction currentProduction;
-    public Planet(int x, int y, Player player, int production, int defense, int science)
+    public Planet(String name, int x, int y, Player player, int production, int defense, int science)
     {
+        this.name = name;
         this.x = x;
         this.owner = player;
         this.production = production;
         this.defense = defense;
         this.science = science;
         troop = new Troop();
+        troop.addStrength(3);
         this.y = y;
         currentProduction = new CurrentProduction(TroopManagerActivity.TROOP_NAME, TroopManagerActivity.getTroopCost(owner));
     }
-
+    public String getName(){
+        return this.name;
+    }
     public int getColor()
     {
         return color;

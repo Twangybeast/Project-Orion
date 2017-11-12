@@ -15,8 +15,9 @@ public class DrawingView extends View
     public int yEndBound;
     private int width;
     private int height;
-    public static final int[] PLAYERS_COLOR = {Color.RED, Color.GREEN, Color.BLUE, Color.MAGENTA, Color.CYAN};
+    public static final int[] PLAYERS_COLOR = {Color.RED, Color.GREEN, Color.CYAN, Color.MAGENTA, Color.BLUE};
     public GameManager gm;
+
     public DrawingView(Context context, int width, int height, GameManager gm)
     {
         super(context);
@@ -45,7 +46,30 @@ public class DrawingView extends View
         if(gm.hoveredPlanet != null) {
             drawContextBox(canvas, paint, gm.hoveredPlanet);
         }
+        drawAttackResult(canvas, paint);
         invalidate();
+    }
+    private void drawAttackResult(Canvas canvas, Paint paint)
+    {
+        if (gm.ae != null)
+        {
+            paint.setTextSize(100);
+            int cwidth = width/2;
+            int cheight = height/2;
+            int textX = cwidth/2;
+            int textY = cheight/2;
+            int lineHeight = 95;
+            paint.setColor(0xFF444444);
+            canvas.drawRect(cwidth/2, cheight/2, (int)(cwidth*1.5f), (int)(cheight*1.5f), paint);
+            paint.setColor(0xFFEEEEEE);
+            canvas.drawText("Winner: ", textX, textY + lineHeight, paint);
+            canvas.drawText((gm.ae.successfulCapture ? "Attacker" : "Defender"), textX, textY + lineHeight*2, paint);
+            canvas.drawText("Attacking: ", textX, textY + lineHeight*3, paint);
+            canvas.drawText(gm.ae.attackingStart + " - "+gm.ae.attackingLoss + " = " + Math.max(0,gm.ae.attackingStart-gm.ae.attackingLoss), textX, textY + lineHeight*4, paint);
+            canvas.drawText("Defending: ", textX, textY + lineHeight*5, paint);
+            canvas.drawText(gm.ae.defendingStart + " - "+gm.ae.defendingLoss + " = " + Math.max(0,gm.ae.defendingStart-gm.ae.defendingLoss), textX, textY + lineHeight*6, paint);
+
+        }
     }
 
     private void drawContextBox(Canvas canvas, Paint paint, Planet planet) {
@@ -81,8 +105,8 @@ public class DrawingView extends View
         int lineHeight = 40;
         canvas.drawText("Defense: " + planet.getDefense(), textX, textY + lineHeight, paint);
         canvas.drawText("Production: " + planet.getProduction(), textX, textY + lineHeight*2, paint);
-        canvas.drawText("Science: " + planet.getProduction(), textX, textY + lineHeight*3, paint);
-        canvas.drawText("Troops: " + planet.getProduction(), textX, textY + lineHeight*4, paint);
+        canvas.drawText("Science: " + planet.getScience(), textX, textY + lineHeight*3, paint);
+        canvas.drawText("Troops: " + planet.getTroop().getStrength(), textX, textY + lineHeight*4, paint);
     }
 
     public void drawPlanet(Canvas canvas, Paint paint, Planet planet, int dx, int dy)

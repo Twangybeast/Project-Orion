@@ -1,7 +1,14 @@
 package twangybeast.orion;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.text.InputType;
+import android.widget.EditText;
 
 import java.util.List;
 import java.util.Random;
@@ -20,12 +27,16 @@ public class GameManager
     public Player[] players;
     public Planet hoveredPlanet = null;
     public Planet selectedPlanet = null;
-	
+
+    private String[] planetNames = {"Hopper", "Kepler", "Hubble", "Brahe", "Halley", "Sagan", "Hawking"};
+
     public ScienceManagerActivity sma;
     public ProductionManagerActivity pma;
     public List<Science> sciences;
-	
-    public GameManager(Resources res, int numOfPlayers)
+    public AttackEvent ae;
+    public Context context;
+    public int troopNum = -1;
+    public GameManager(Resources res, int numOfPlayers, Context context)
     {
         playerNum = numOfPlayers;
         planets = new Planet[planetNum];
@@ -34,6 +45,8 @@ public class GameManager
         sciences = Science.getSciences(res);
         sma = new ScienceManagerActivity(sciences);
         pma = new ProductionManagerActivity(sciences);
+        ae = null;
+        this.context = context;
     }
 
     public void generatePlanets()
@@ -56,7 +69,7 @@ public class GameManager
             xs[i] = posX;
             ys[i] = posY;
 
-            planets[i] = new Planet(posX, posY, natives, 10, 0, 1);
+            planets[i] = new Planet(planetNames[i], posX, posY, natives, 10, 0, 1);
         }
 
         for (int i = 0; i < playerNum; i++)
@@ -111,6 +124,37 @@ public class GameManager
         {
             turn++;
         }
+        if (players[turn].getPlanets().isEmpty())
+        {
+            endTurn();
+            return;
+        }
+        if (gameOver())
+        {
+            endgame();
+        }
     }
-
+    public boolean gameOver()
+    {
+        for (Player player : players)
+        {
+            if (player != players[turn])
+            {
+                if (!player.getPlanets().isEmpty())
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    public void endgame()
+    {
+        System.out.println("GAME OVER, Player #"+turn+" wins!");
+        //TODO win screen
+    }
+    public int promptForTroop(final int max)
+    {
+        return 3;
+    }
 }

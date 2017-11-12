@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class FullscreenActivity extends AppCompatActivity {
     private DrawingView drawingView;
-    private GameManager gm;
+    public static GameManager gm;
     public static int SCREEN_WIDTH;
     public static int SCREEN_HEIGHT;
 
@@ -42,7 +42,7 @@ public class FullscreenActivity extends AppCompatActivity {
         SCREEN_WIDTH = getScreenWidth();
         SCREEN_HEIGHT = getScreenHeight();
 
-        gm = new GameManager(getResources(), numPlayers);
+        gm = new GameManager(getResources(), numPlayers, this);
         drawingView = new DrawingView(this, SCREEN_WIDTH, SCREEN_HEIGHT, gm);
         drawingView.setLayoutParams(new ViewGroup.LayoutParams(getScreenWidth(), getScreenHeight()));
 
@@ -84,7 +84,6 @@ public class FullscreenActivity extends AppCompatActivity {
         if (resourceId > 0) {
             result = getResources().getDimensionPixelSize(resourceId);
         }
-        System.out.println(result);
         return result;
     }
 
