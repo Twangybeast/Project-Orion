@@ -14,17 +14,19 @@ public class Planet
     private Player owner;
     private int production;
     private int defense;
+    private int science;
     private int color = Color.rgb(200, 200, 200);
     private ArrayList<Improvement> improvements = new ArrayList<Improvement>();
     private ArrayList<Troop> troops = new ArrayList<>();
-
-    public Planet(int x, int y, Player player, int production, int defense)
+    private CurrentProduction currentProduction = new CurrentProduction();
+    public Planet(int x, int y, Player player, int production, int defense, int science)
     {
         this.x = x;
         this.y = y;
         this.owner = player;
         this.production = production;
         this.defense = defense;
+        this.science = science;
     }
 
     public int getColor()
@@ -75,6 +77,16 @@ public class Planet
     public int getDefense()
     {
         return defense;
+    }
+
+    public int getScience()
+    {
+        return science;
+    }
+
+    public void setScience(int science)
+    {
+        this.science = science;
     }
 
     private void refreshColor()
