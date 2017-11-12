@@ -5,16 +5,16 @@
 
     </string-array>
     <string-array name="science1prereq">
-        <item name="s0">science0</item>
+        <item>science0</item>
     </string-array>
     <string-array name="science2prereq">
-        <item name="s1">science1</item>
+        <item>science1</item>
     </string-array>
     <string-array name="science3prereq">
-        <item name="s1_">science1</item>
+        <item>science1</item>
     </string-array>
     <string-array name="science4prereq">
-        <item name="s2">science2</item>
+        <item>science2</item>
     </string-array>
 
     <array name="science0">
