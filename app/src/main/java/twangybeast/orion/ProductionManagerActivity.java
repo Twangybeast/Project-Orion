@@ -29,6 +29,7 @@ public class ProductionManagerActivity
                 else
                 {
                     Improvement improvement = getImprovement(planet.getCurrentProduction().prodName);
+                    planet.getImprovements().add(improvement);
                     planet.production += improvement.getProduction();
                     planet.science += improvement.getScience();
                     planet.defense += improvement.getDefense();
@@ -83,7 +84,7 @@ public class ProductionManagerActivity
         {
             for (Improvement improvement : sci.getImprovements())
             {
-                if (name.startsWith(improvement.getName()))
+                if (improvement.getName().equals(name))
                 {
                     return improvement;
                 }
