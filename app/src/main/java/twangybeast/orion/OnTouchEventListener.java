@@ -56,6 +56,7 @@ public class OnTouchEventListener implements View.OnTouchListener
             case MotionEvent.ACTION_DOWN:
                 downPos = new Point((int)event.getX(), (int)event.getY());
                 down = true;
+                gm.ae = null;
                 break;
             case MotionEvent.ACTION_UP:
                 down = false;
@@ -70,10 +71,29 @@ public class OnTouchEventListener implements View.OnTouchListener
                         }
                     }
                     Planet planet = collidePlanet(downPos.x, downPos.y, (int)event.getX(), (int)event.getY(), DEFAULT_SENSITIVITY);
-                    System.out.println(planet);
                     gm.hoveredPlanet = planet;
                 }
-                
+                //Swipe
+                Planet start = collidePlanet(downPos.x, downPos.y, DEFAULT_SENSITIVITY);
+                if (start!= null && start.getOwner() == gm.players[gm.turn])
+                {
+                    Planet target = collidePlanet((int)event.getX(), (int)event.getY(), DEFAULT_SENSITIVITY*2);
+                    if (target != null && target != start)
+                    {
+                        int moveStrength = gm.promptForTroop(start.getTroop().getStrength());//Moves some number of troops
+                        //TODO
+                        if (start.getOwner() == target.getOwner())
+                        {
+                            //Friendly, transport troops
+                            TroopManagerActivity.moveTroops(start, target, moveStrength);
+                        }
+                        else
+                        {
+                            //TODO Give dialogue descriing attack result
+                            gm.ae = TroopManagerActivity.attack(start, target, moveStrength);
+                        }
+                    }
+                }
                 gm.selectedPlanet = null;
                 break;
         }

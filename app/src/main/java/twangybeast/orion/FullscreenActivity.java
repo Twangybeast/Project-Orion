@@ -39,7 +39,7 @@ public class FullscreenActivity extends AppCompatActivity {
         SCREEN_WIDTH = getScreenWidth();
         SCREEN_HEIGHT = getScreenHeight();
 
-        gm = new GameManager(getResources(), numPlayers);
+        gm = new GameManager(getResources(), numPlayers, this);
         drawingView = new DrawingView(this, SCREEN_WIDTH, SCREEN_HEIGHT, gm);
         drawingView.setLayoutParams(new ViewGroup.LayoutParams(getScreenWidth(), getScreenHeight()));
 
@@ -81,7 +81,6 @@ public class FullscreenActivity extends AppCompatActivity {
         if (resourceId > 0) {
             result = getResources().getDimensionPixelSize(resourceId);
         }
-        System.out.println(result);
         return result;
     }
 }
