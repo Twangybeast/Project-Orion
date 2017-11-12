@@ -112,6 +112,34 @@ public class GameManager
         {
             turn++;
         }
+        if (players[turn].getPlanets().isEmpty())
+        {
+            endTurn();
+            return;
+        }
+        if (gameOver())
+        {
+            endgame();
+        }
+    }
+    public boolean gameOver()
+    {
+        for (Player player : players)
+        {
+            if (player != players[turn])
+            {
+                if (!player.getPlanets().isEmpty())
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    public void endgame()
+    {
+        System.out.println("GAME OVER, Player #"+turn+" wins!");
+        //TODO win screen
     }
 
 }

@@ -55,8 +55,8 @@ public class TroopManagerActivity
     }
     public static void capturePlanet(Planet attacker, Planet defender)
     {
-        defender.setOwner(attacker.getOwner());
         defender.getOwner().getPlanets().remove(defender);
+        defender.setOwner(attacker.getOwner());
         attacker.getOwner().getPlanets().add(defender);
     }
 
