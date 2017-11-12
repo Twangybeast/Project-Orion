@@ -25,7 +25,7 @@ public class Science
 
     }
     @SuppressWarnings("ResourceType")
-    public List<Science> getSciences(Resources res)
+    public static List<Science> getSciences(Resources res)
     {
         List<Science> sciences = new LinkedList<>();
         TypedArray ta = res.obtainTypedArray(R.array.sciences);
