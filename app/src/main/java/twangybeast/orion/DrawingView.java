@@ -9,13 +9,19 @@ import java.util.*;
 public class DrawingView extends View
 {
     private static final int BACKGROUND = 0xFF080808;
+    private boolean didSomething = false;
+    private int turn = 0;
     private Paint paint;
     private Context context;
+    private int xEndBound;
+    private int yEndBound;
     private int width;
     private int height;
     private int planetNum = 7;
+    private int playerNum = 3;
     private Planet[] planets = new Planet[planetNum];
-
+    private Player[] players = new Player[playerNum];
+    private int[] playersColor = {Color.RED, Color.GREEN, Color.BLUE, Color.MAGENTA, Color.CYAN};
     private Planet hoveredPlanet = null;
     private Planet selectedPlanet = null;
 
@@ -45,8 +51,14 @@ public class DrawingView extends View
             xs[i] = posX;
             ys[i] = posY;
 
-            planets[i] = new Planet(posX, posY, natives, 10, 0);
+            planets[i] = new Planet(posX, posY, natives, 10, 0, 1);
         }
+
+        for(int i = 0; i < playerNum; i++){
+            players[i] = new Player(playersColor[i]);
+            planets[(int)(Math.random()*planets.length)].setOwner(players[i]);
+        }
+        //play();
     }
 
     private boolean arrayContainsNear(int[] array, int value) {
@@ -64,29 +76,40 @@ public class DrawingView extends View
     }
 
     public void touchAt(float x, float y, long heldDuration) {
-        for(Planet planet : planets) {
-            Point planetPosition = planet.getPositionInPixels();
-            float changeX = planetPosition.x - x;
-            float changeY = planetPosition.y - y;
-            double distance = Math.sqrt((changeX*changeX + changeY*changeY));
 
-            if(Config.getPlanetDiameter(width, height) + 10 >= distance) {
-                if(hoveredPlanet != null && hoveredPlanet.equals(planet) && selectedPlanet == null) {
-                    if(heldDuration > 1500) {
-                        selectedPlanet = hoveredPlanet;
-                        System.out.println("HELD FOR MORE THAN TWO SECONDS");
+        if(x >= xEndBound && y >= yEndBound && didSomething){
+            if(turn == playerNum-1){
+                turn = 0;
+            } else {
+                turn++;
+            }
+            didSomething = false;
+        } else {
+            didSomething = true;
+            for(Planet planet : planets) {
+                Point planetPosition = planet.getPositionInPixels();
+                float changeX = planetPosition.x - x;
+                float changeY = planetPosition.y - y;
+                double distance = Math.sqrt((changeX*changeX + changeY*changeY));
 
-                        Context context = this.getContext();
+                if(Config.getPlanetDiameter(width, height) + 10 >= distance) {
+                    if(hoveredPlanet != null && hoveredPlanet.equals(planet) && selectedPlanet == null) {
+                        if(heldDuration > 1500) {
+                            selectedPlanet = hoveredPlanet;
+                            System.out.println("HELD FOR MORE THAN TWO SECONDS");
 
-                        Intent intent = new Intent(context, ProductionManagerPageActivity.class);
-                        intent.putExtra("PLANET", "test");
-                        context.startActivity(intent);
+                            Context context = this.getContext();
+
+                            Intent intent = new Intent(context, ProductionManagerPageActivity.class);
+                            intent.putExtra("PLANET", "test");
+                            context.startActivity(intent);
+                        }
+                    } else {
+                        hoveredPlanet = planet;
                     }
-                } else {
-                    hoveredPlanet = planet;
-                }
 
-                return;
+                    return;
+                }
             }
         }
 
@@ -162,5 +185,16 @@ public class DrawingView extends View
         paint.setColor(planet.getColor());
         Point p = Config.getScreenCoordinates(planet.getPosition().x, planet.getPosition().y, width, height);
         canvas.drawCircle(p.x+Config.getCellWidth(width)/2, p.y+Config.getCellHeight(height)/2, (int)(Config.getPlanetDiameter(width, height)/2), paint);
+
+        paint.setColor(players[turn].getColor());
+        paint.setTextSize(50);
+        Rect bounds = new Rect();
+        paint.getTextBounds("End Turn",0, "End Turn".length(), bounds);
+        xEndBound = width-bounds.width()-25;
+        yEndBound = height-bounds.height()+10;
+        canvas.drawText("End Turn",xEndBound, yEndBound, paint);
+        Rect tBounds = new Rect();
+        paint.getTextBounds("Player " + turn,0, ("Player " + turn).length(), bounds);
+        canvas.drawText("Player " + (turn+1),0, tBounds.height()+50, paint);
     }
 }
