@@ -1,7 +1,14 @@
 package twangybeast.orion;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.text.InputType;
+import android.widget.EditText;
 
 import java.util.List;
 import java.util.Random;
@@ -24,8 +31,9 @@ public class GameManager
     public ProductionManagerActivity pma;
     public List<Science> sciences;
     public AttackEvent ae;
-
-    public GameManager(Resources res, int numOfPlayers)
+    public Context context;
+    public int troopNum = -1;
+    public GameManager(Resources res, int numOfPlayers, Context context)
     {
         playerNum = numOfPlayers;
         planets = new Planet[planetNum];
@@ -35,6 +43,7 @@ public class GameManager
         sma = new ScienceManagerActivity(sciences);
         pma = new ProductionManagerActivity(sciences);
         ae = null;
+        this.context = context;
     }
 
     public void generatePlanets()
@@ -141,5 +150,8 @@ public class GameManager
         System.out.println("GAME OVER, Player #"+turn+" wins!");
         //TODO win screen
     }
-
+    public int promptForTroop(final int max)
+    {
+        return 3;
+    }
 }

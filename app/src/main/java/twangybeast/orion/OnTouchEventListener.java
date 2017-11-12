@@ -73,7 +73,7 @@ public class OnTouchEventListener implements View.OnTouchListener
                     Planet target = collidePlanet((int)event.getX(), (int)event.getY(), DEFAULT_SENSITIVITY*2);
                     if (target != null && target != start)
                     {
-                        int moveStrength = 3;//Moves some number of troops
+                        int moveStrength = gm.promptForTroop(start.getTroop().getStrength());//Moves some number of troops
                         //TODO
                         if (start.getOwner() == target.getOwner())
                         {
