@@ -83,7 +83,7 @@ public class ProductionManagerActivity
         {
             for (Improvement improvement : sci.getImprovements())
             {
-                if (improvement.getName().equals(name))
+                if (name.startsWith(improvement.getName()))
                 {
                     return improvement;
                 }
