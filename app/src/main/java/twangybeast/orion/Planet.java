@@ -28,6 +28,7 @@ public class Planet
         this.defense = defense;
         this.science = science;
         troop = new Troop();
+        troop.addStrength(3);
         this.y = y;
         currentProduction = new CurrentProduction(TroopManagerActivity.TROOP_NAME, TroopManagerActivity.getTroopCost(owner));
     }

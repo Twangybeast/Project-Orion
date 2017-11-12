@@ -30,7 +30,9 @@ public class TroopManagerActivity
         if (defender.getTroop().getStrength() == 0)
         {
             capturePlanet(attacker, defender);
-            return new AttackEvent(attackingStrength,0,defender.getDefense(),0,0,true);
+            defender.getTroop().addStrength(attackingStrength);
+            attacker.getTroop().removeStrength(attackingStrength);
+            return new AttackEvent(attackingStrength,0,defender.getTroop().getStrength(),0,0,true);
         }
         attacker.getTroop().removeStrength(attackingStrength);
         int defenseStrength = (int)(defender.getDefense()*DEFENSE_MULTIPLIER)+defender.getTroop().getStrength();
@@ -39,15 +41,16 @@ public class TroopManagerActivity
         int defenseStart = defenseStrength;
         attackingStrength -= defenseStart *0.7;
         defender.getTroop().removeStrength((int)(attackStart*0.6));
-        attacker.getTroop().addStrength(attackingStrength);
         if (defender.getTroop().getStrength() == 0)
         {
             capturePlanet(attacker, defender);
-            return new AttackEvent(attackStart,defenseStart,defender.getDefense(),attackingStrength-attackStart,defenseStart-defender.getTroop().getStrength(),true);
+            defender.getTroop().addStrength(attackingStrength);
+            return new AttackEvent(attackStart,defenseStart,defender.getDefense(),attackStart-attackingStrength,defenseStart,true);
         }
         else
         {
-            return new AttackEvent(attackStart,defenseStart,defender.getDefense(),attackingStrength-attackStart,defenseStart-defender.getTroop().getStrength(),false);
+            attacker.getTroop().addStrength(attackingStrength);
+            return new AttackEvent(attackStart,defenseStart,defender.getDefense(),attackStart-attackingStrength,defenseStart-defender.getTroop().getStrength(),false);
         }
     }
     public static void capturePlanet(Planet attacker, Planet defender)

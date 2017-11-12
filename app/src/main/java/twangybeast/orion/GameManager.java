@@ -23,6 +23,7 @@ public class GameManager
     public ScienceManagerActivity sma;
     public ProductionManagerActivity pma;
     public List<Science> sciences;
+    public AttackEvent ae;
     public GameManager(Resources res)
     {
         planets = new Planet[planetNum];
@@ -31,6 +32,7 @@ public class GameManager
         sciences = Science.getSciences(res);
         sma = new ScienceManagerActivity(sciences);
         pma = new ProductionManagerActivity(sciences);
+        ae = null;
     }
 
     public void generatePlanets()

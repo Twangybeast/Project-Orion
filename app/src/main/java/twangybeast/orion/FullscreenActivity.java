@@ -74,7 +74,6 @@ public class FullscreenActivity extends AppCompatActivity {
         if (resourceId > 0) {
             result = getResources().getDimensionPixelSize(resourceId);
         }
-        System.out.println(result);
         return result;
     }
 }
