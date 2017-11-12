@@ -1,11 +1,15 @@
 package twangybeast.orion;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
 import android.support.constraint.solver.widgets.Rectangle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.NumberPicker;
 
 public class OnTouchEventListener implements View.OnTouchListener
 {
@@ -74,23 +78,51 @@ public class OnTouchEventListener implements View.OnTouchListener
                     gm.hoveredPlanet = planet;
                 }
                 //Swipe
-                Planet start = collidePlanet(downPos.x, downPos.y, DEFAULT_SENSITIVITY);
+                final Planet start = collidePlanet(downPos.x, downPos.y, DEFAULT_SENSITIVITY);
                 if (start!= null && start.getOwner() == gm.players[gm.turn])
                 {
-                    Planet target = collidePlanet((int)event.getX(), (int)event.getY(), DEFAULT_SENSITIVITY*2);
+                    final Planet target = collidePlanet((int)event.getX(), (int)event.getY(), DEFAULT_SENSITIVITY*2);
                     if (target != null && target != start)
                     {
-                        int moveStrength = gm.promptForTroop(start.getTroop().getStrength());//Moves some number of troops
-                        //TODO
-                        if (start.getOwner() == target.getOwner())
-                        {
-                            //Friendly, transport troops
-                            TroopManagerActivity.moveTroops(start, target, moveStrength);
-                        }
-                        else
-                        {
-                            gm.ae = TroopManagerActivity.attack(start, target, moveStrength);
-                        }
+
+                        final NumberPicker numberPicker = new NumberPicker(FullscreenActivity.gm.context);
+
+                        numberPicker.setMaxValue(start.getTroop().getStrength());
+                        numberPicker.setMinValue(0);
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(FullscreenActivity.gm.context);
+                        builder.setTitle("Attack Planet " + target.getName());
+                        builder.setMessage("Choose a number of troops to deploy: ");
+                        builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener(){
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+
+                        builder.setView(numberPicker);
+
+                        builder.setPositiveButton("ATTACK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                int moveStrength = numberPicker.getValue();
+
+                                //Moves some number of troops
+                                //TODO
+                                if (start.getOwner() == target.getOwner())
+                                {
+                                    //Friendly, transport troops
+                                    TroopManagerActivity.moveTroops(start, target, moveStrength);
+                                }
+                                else
+                                {
+                                    gm.ae = TroopManagerActivity.attack(start, target, moveStrength);
+                                }
+                            }
+                        });
+
+                        builder.create();
+                        builder.show();
                     }
                 }
                 gm.selectedPlanet = null;

@@ -1,8 +1,12 @@
 package twangybeast.orion;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Rect;
+import android.net.sip.SipSession;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,6 +19,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.NumberPicker;
 
 import java.util.List;
 
@@ -37,7 +42,7 @@ public class FullscreenActivity extends AppCompatActivity {
         int numPlayers = 3;
 
         Bundle extras = getIntent().getExtras();
-        if(extras != null) {
+        if (extras != null) {
             numPlayers = Integer.parseInt(extras.getString("playerNum"));
         }
 
@@ -58,29 +63,27 @@ public class FullscreenActivity extends AppCompatActivity {
         super.onPostCreate(savedInstanceState);
     }
 
-    public int getScreenWidth()
-    {
+    public int getScreenWidth() {
         return getApplicationContext().getResources().getDisplayMetrics().widthPixels;
     }
-    public int getScreenHeight()
-    {
-        return getApplicationContext().getResources().getDisplayMetrics().heightPixels-getBarHeights();
+
+    public int getScreenHeight() {
+        return getApplicationContext().getResources().getDisplayMetrics().heightPixels - getBarHeights();
     }
-    public int getActionBarHeight()
-    {
+
+    public int getActionBarHeight() {
         TypedValue tv = new TypedValue();
-        if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true))
-        {
-            return TypedValue.complexToDimensionPixelSize(tv.data,getResources().getDisplayMetrics());
+        if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
+            return TypedValue.complexToDimensionPixelSize(tv.data, getResources().getDisplayMetrics());
         }
         return 0;
     }
-    public int getBarHeights()
-    {
-        return getActionBarHeight()+getStatusBarHeight();
+
+    public int getBarHeights() {
+        return getActionBarHeight() + getStatusBarHeight();
     }
-    public int getStatusBarHeight()
-    {
+
+    public int getStatusBarHeight() {
         int result = 0;
         int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) {
@@ -96,7 +99,7 @@ public class FullscreenActivity extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.science) {
+        if (item.getItemId() == R.id.science) {
             System.out.println("SCIENCE CLICKED");
 
             Intent intent = new Intent(this, ScienceManagerPageActivity.class);
@@ -107,5 +110,42 @@ public class FullscreenActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public static AlertDialog.Builder createNumberDialog(String planetName, int maxTroops, Context context) {
+        final NumberPicker numberPicker = new NumberPicker(context);
+
+        numberPicker.setMaxValue(maxTroops);
+        numberPicker.setMinValue(0);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Attack Planet " + planetName);
+        builder.setMessage("Choose a number of troops to deploy: ");
+        builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        builder.setView(numberPicker);
+
+        return builder;
+    }
+}
+class DialogListener implements DialogInterface.OnClickListener {
+    int result = -1;
+    NumberPicker numberPicker;
+    public DialogListener(NumberPicker numberPicker)
+    {
+        this.numberPicker = numberPicker;
+    }
+    public int getResult()
+    {
+        return result;
+    }
+    @Override
+    public void onClick(DialogInterface dialogInterface, int i) {
+        result = numberPicker.getValue();
     }
 }
