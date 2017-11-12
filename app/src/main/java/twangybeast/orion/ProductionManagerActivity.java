@@ -24,7 +24,7 @@ public class ProductionManagerActivity
                 planet.getCurrentProduction().progress -= planet.getCurrentProduction().cost;
                 if (planet.getCurrentProduction().prodName.equals(TroopManagerActivity.TROOP_NAME))
                 {
-                    //Create troop
+                    planet.getTroop().addStrength(TroopManagerActivity.getUnitStrength(planet.getOwner()));
                 }
                 else
                 {

@@ -7,6 +7,7 @@
         <item name="improvements">@array/science0improvements</item>
         <item name="cost">5</item>
         <item name="prereqs">@array/science0prereq</item>
+        <item name="troopIncrease">0</item>
     </array>
     <array name="sciences">
         <item>@array/science0</item>

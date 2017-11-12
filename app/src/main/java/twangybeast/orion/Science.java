@@ -7,7 +7,6 @@ import android.content.res.TypedArray;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ResourceBundle;
 import java.util.Set;
 
 public class Science
@@ -16,12 +15,14 @@ public class Science
     private Set<Improvement> improvements;
     private int cost;
     private Set<String> prereqs;
-    public Science(String name, Set<Improvement> improvements, int cost, Set<String> prereqs)
+    private int troopIncrease;
+    public Science(String name, Set<Improvement> improvements, int cost, Set<String> prereqs, int troopIncrease)
     {
         this.name = name;
         this.improvements = improvements;
         this.cost = cost;
         this.prereqs = prereqs;
+        this.troopIncrease = troopIncrease;
 
     }
     @SuppressWarnings("ResourceType")
@@ -47,7 +48,7 @@ public class Science
     public static Science getScience(int id, Resources res)
     {
         TypedArray ta = res.obtainTypedArray(id);
-        Science science = new Science(ta.getString(0),Improvement.getImprovements(ta.getResourceId(1,0), res),ta.getInt(2,0),getPrereqs(ta.getResourceId(3,0), res));
+        Science science = new Science(ta.getString(0),Improvement.getImprovements(ta.getResourceId(1,0), res),ta.getInt(2,0),getPrereqs(ta.getResourceId(3,0), res), ta.getInt(4,0));
         ta.recycle();
         return science;
     }
@@ -100,5 +101,15 @@ public class Science
     public void setPrereqs(Set<String> prereqs)
     {
         this.prereqs = prereqs;
+    }
+
+    public int getTroopIncrease()
+    {
+        return troopIncrease;
+    }
+
+    public void setTroopIncrease(int troopIncrease)
+    {
+        this.troopIncrease = troopIncrease;
     }
 }
