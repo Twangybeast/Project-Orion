@@ -29,6 +29,7 @@ public class ProductionManagerActivity
                 else
                 {
                     Improvement improvement = getImprovement(planet.getCurrentProduction().prodName);
+                    planet.getImprovements().add(improvement);
                     planet.production += improvement.getProduction();
                     planet.science += improvement.getScience();
                     planet.defense += improvement.getDefense();
