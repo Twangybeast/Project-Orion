@@ -89,7 +89,6 @@ public class OnTouchEventListener implements View.OnTouchListener
                         }
                         else
                         {
-                            //TODO Give dialogue descriing attack result
                             gm.ae = TroopManagerActivity.attack(start, target, moveStrength);
                         }
                     }
