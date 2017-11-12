@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class FullscreenActivity extends AppCompatActivity {
     private DrawingView drawingView;
-    private GameManager gm;
+    public static GameManager gm;
     public static int SCREEN_WIDTH;
     public static int SCREEN_HEIGHT;
 

@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Orion.iml" filepath="$PROJECT_DIR$/Orion.iml" />
+      <module fileurl="file://C:\Users\darsh\Desktop\ProjectOrion\Orion.iml" filepath="C:\Users\darsh\Desktop\ProjectOrion\Orion.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ProjectOrion.iml" filepath="$PROJECT_DIR$/ProjectOrion.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

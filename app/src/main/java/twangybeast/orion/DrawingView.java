@@ -15,8 +15,9 @@ public class DrawingView extends View
     public int yEndBound;
     private int width;
     private int height;
-    public static final int[] PLAYERS_COLOR = {Color.RED, Color.GREEN, Color.BLUE, Color.MAGENTA, Color.CYAN};
+    public static final int[] PLAYERS_COLOR = {Color.RED, Color.GREEN, Color.CYAN, Color.MAGENTA, Color.BLUE};
     public GameManager gm;
+
     public DrawingView(Context context, int width, int height, GameManager gm)
     {
         super(context);
