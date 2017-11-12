@@ -59,6 +59,8 @@ public class GameManager
 
         Random seed = new Random();
 
+        int tries = 0;
+
         for (int i = 0; i < planetNum; ++i)
         {
             int posX;
