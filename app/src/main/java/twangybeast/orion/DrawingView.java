@@ -56,7 +56,15 @@ public class DrawingView extends View
 
         for(int i = 0; i < playerNum; i++){
             players[i] = new Player(playersColor[i]);
-            planets[(int)(Math.random()*planets.length)].setOwner(players[i]);
+            int playerPlanet;
+            do
+            {
+                 playerPlanet = seed.nextInt(planetNum);
+
+            }
+            while (planets[playerPlanet].getOwner() != natives);
+            planets[playerPlanet].setOwner(players[i]);
+            players[i].getPlanets().add(planets[playerPlanet]);
         }
         //play();
     }
