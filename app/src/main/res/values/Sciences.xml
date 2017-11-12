@@ -1,15 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string-array name="science0prereq">
+
     </string-array>
+    <string-array name="science1prereq">
+        <string>science0</string>
+    </string-array>
+    <string-array name="science2prereq">
+        <string>science1</string>
+    </string-array>
+    <string-array name="science3prereq">
+        <string>science1</string>
+    </string-array>
+    <string-array name="science4prereq">
+        <string>science2</string>
+    </string-array>
+
     <array name="science0">
-        <item name="name">Science Level 1</item>
+        <item name="name">Interstellar Travel</item>
         <item name="improvements">@array/science0improvements</item>
         <item name="cost">5</item>
         <item name="prereqs">@array/science0prereq</item>
         <item name="troopIncrease">0</item>
     </array>
+    <array name="science1">
+        <item name="name">Nanobots</item>
+        <item name="improvements">@array/science1improvements</item>
+        <item name="cost">8</item>
+        <item name="prereqs">@array/science1prereq</item>
+        <item name="troopIncrease">2</item>
+    </array>
+    <array name="science3">
+        <item name="name">Cybernetics</item>
+        <item name="improvements">@array/science3improvements</item>
+        <item name="cost">8</item>
+        <item name="prereqs">@array/science3prereq</item>
+        <item name="troopIncrease">5</item>
+    </array>
+    <array name="science2">
+        <item name="name">Quantum Computing</item>
+        <item name="improvements">@array/science2improvements</item>
+        <item name="cost">9</item>
+        <item name="prereqs">@array/science2prereq</item>
+        <item name="troopIncrease">3</item>
+    </array>
+    <array name="science4">
+        <item name="name">Artificial Intelligence</item>
+        <item name="improvements">@array/science4improvements</item>
+        <item name="cost">7</item>
+        <item name="prereqs">@array/science4prereq</item>
+        <item name="troopIncrease">9</item>
+    </array>
     <array name="sciences">
         <item>@array/science0</item>
+        <item>@array/science1</item>
+        <item>@array/science2</item>
     </array>
 </resources>

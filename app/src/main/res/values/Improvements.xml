@@ -1,29 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="improvement0">
-        <item name="name">Factory Level 1</item>
+        <item name="name">Factory</item>
         <item name="science">0</item>
         <item name="defense">0</item>
         <item name="production">1</item>
         <item name="cost">1</item>
     </array>
     <array name="improvement1">
-        <item name="name">Planetary Defense Level 1</item>
+        <item name="name">Planetary Defense System</item>
         <item name="science">0</item>
         <item name="defense">1</item>
         <item name="production">0</item>
         <item name="cost">1</item>
     </array>
     <array name="improvement2">
-        <item name="name">Research Lab Level 1</item>
+        <item name="name">Research Lab</item>
         <item name="science">1</item>
         <item name="defense">0</item>
         <item name="production">0</item>
         <item name="cost">1</item>
     </array>
+
+    <array name="improvement3">
+        <item name="name">Biofactory</item>
+        <item name="science">2</item>
+        <item name="defense">0</item>
+        <item name="production">3</item>
+        <item name="cost">2</item>
+    </array>
+    <array name="improvement4">
+        <item name="name">Bioengineering</item>
+        <item name="science">0</item>
+        <item name="defense">1</item>
+        <item name="production">2</item>
+        <item name="cost">2</item>
+    </array>
+
+    <array name="improvement5">
+        <item name="name">Hypercomputing</item>
+        <item name="science">2</item>
+        <item name="defense">0</item>
+        <item name="production">5</item>
+        <item name="cost">3</item>
+    </array>
+    <array name="improvement6">
+        <item name="name">Deflector Shield</item>
+        <item name="science">0</item>
+        <item name="defense">4</item>
+        <item name="production">1</item>
+        <item name="cost">3</item>
+    </array>
+
     <array name="science0improvements">
         <item>@array/improvement0</item>
         <item>@array/improvement1</item>
         <item>@array/improvement2</item>
+    </array>
+    <array name="science1improvements">
+        <item>@array/improvement3</item>
+        <item>@array/improvement4</item>
+    </array>
+    <array name="science3improvements">
+
+    </array>
+    <array name="science2improvements">
+        <item>@array/improvement5</item>
+        <item>@array/improvement6</item>
+    </array>
+    <array name="science4improvements">
+
     </array>
 </resources>
