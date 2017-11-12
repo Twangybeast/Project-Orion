@@ -35,7 +35,7 @@ public class Planet
         troop = new Troop();
         troop.addStrength(2);
         this.y = y;
-        currentProduction = new CurrentProduction(TroopManagerActivity.TROOP_NAME, TroopManagerActivity.getTroopCost(owner));
+        currentProduction = new CurrentProduction(TroopManagerActivity.TROOP_NAME, TroopManagerActivity.getTroopCost(owner), FullscreenActivity.turnNum);
 
         this.moonAngle = Math.random();
 

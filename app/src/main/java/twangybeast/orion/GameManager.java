@@ -98,7 +98,7 @@ public class GameManager
             xs[i] = posX;
             ys[i] = posY;
 
-            planets[i] = new Planet(planetNames[i], posX, posY, natives, 2, 0, 1);
+            planets[i] = new Planet(planetNames[i], posX, posY, natives, 2, 2, 1);
         }
     }
 
@@ -139,6 +139,8 @@ public class GameManager
         {
             turn++;
         }
+
+        FullscreenActivity.turnNum++;
         if (players[turn].getPlanets().isEmpty())
         {
             endTurn();

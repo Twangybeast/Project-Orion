@@ -28,6 +28,7 @@ import java.util.List;
  * status bar and navigation/system bar) with user interaction.
  */
 public class FullscreenActivity extends AppCompatActivity {
+    public static int turnNum = 1;
     private DrawingView drawingView;
     public static GameManager gm;
     public static int SCREEN_WIDTH;
@@ -45,7 +46,7 @@ public class FullscreenActivity extends AppCompatActivity {
         if (extras != null) {
             numPlayers = Integer.parseInt(extras.getString("playerNum"));
         }
-
+        turnNum /= numPlayers;
         SCREEN_WIDTH = getScreenWidth();
         SCREEN_HEIGHT = getScreenHeight();
 

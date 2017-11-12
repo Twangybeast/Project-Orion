@@ -18,7 +18,7 @@ public class ProductionManagerActivity
     {
         for (Planet planet : player.getPlanets())
         {
-            planet.getCurrentProduction().progress += planet.getProduction();
+            planet.getCurrentProduction().progress += (FullscreenActivity.turnNum - planet.getCurrentProduction().turnNum);
             if (planet.getCurrentProduction().progress >= planet.getCurrentProduction().cost)
             {
                 planet.getCurrentProduction().progress -= planet.getCurrentProduction().cost;
