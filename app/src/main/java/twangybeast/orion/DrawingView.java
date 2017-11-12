@@ -9,14 +9,18 @@ import java.util.*;
 public class DrawingView extends View
 {
     private static final int BACKGROUND = 0xFF080808;
+    private boolean didSomething = false;
+    private int turn = 0;
     private Paint paint;
     private Context context;
+    private int xEndBound;
+    private int yEndBound;
     private int width;
     private int height;
     private int planetNum = 9;
     private int playerNum = 3;
     private Planet[] planets = new Planet[planetNum];
-    private Player[] players = new Player[playerNum+1];
+    private Player[] players = new Player[playerNum];
     private int[] playersColor = {Color.RED, Color.GREEN, Color.BLUE, Color.MAGENTA, Color.CYAN};
     public DrawingView(Context context, int width, int height)
     {
@@ -51,7 +55,7 @@ public class DrawingView extends View
             players[i] = new Player(playersColor[i]);
             planets[(int)(Math.random()*planets.length)].setOwner(players[i]);
         }
-        play();
+        //play();
     }
 
     private boolean arrayContainsNear(int[] array, int value) {
@@ -68,19 +72,28 @@ public class DrawingView extends View
         return false;
     }
 
-    public Planet touchAt(float x, float y) {
-        for(Planet planet : planets) {
-            Point planetPosition = planet.getPositionInPixels();
-            float changeX = planetPosition.x - x;
-            float changeY = planetPosition.y - y;
-            double distance = Math.sqrt((changeX*changeX + changeY*changeY));
+    public void touchAt(float x, float y) {
+        if(x >= xEndBound && y >= yEndBound && didSomething){
+            if(turn == playerNum-1){
+                turn = 0;
+            } else {
+                turn++;
+            }
+            didSomething = false;
+        } else {
+            didSomething = true;
+            for (Planet planet : planets) {
+                Point planetPosition = planet.getPositionInPixels();
+                float changeX = planetPosition.x - x;
+                float changeY = planetPosition.y - y;
+                double distance = Math.sqrt((changeX * changeX + changeY * changeY));
 
-            if(Config.getPlanetDiameter(width, height) >= distance) {
-                System.out.println("PLANET TOUCHED");
-                return planet;
+                if (Config.getPlanetDiameter(width, height) >= distance) {
+                    System.out.println("PLANET TOUCHED");
+                }
             }
         }
-        return null;
+
     }
 
     @Override
@@ -92,12 +105,25 @@ public class DrawingView extends View
         {
             drawPlanet(canvas, paint, planet, 0, 0);
         }
+
+        invalidate();
     }
     private void drawPlanet(Canvas canvas, Paint paint, Planet planet, int dx, int dy)
     {
         paint.setColor(planet.getColor());
         Point p = Config.getScreenCoordinates(planet.getPosition().x, planet.getPosition().y, width, height);
         canvas.drawCircle(p.x+Config.getCellWidth(width)/2, p.y+Config.getCellHeight(height)/2, (int)(Config.getPlanetDiameter(width, height)/2), paint);
+
+        paint.setColor(players[turn].getColor());
+        paint.setTextSize(50);
+        Rect bounds = new Rect();
+        paint.getTextBounds("End Turn",0, "End Turn".length(), bounds);
+        xEndBound = width-bounds.width()-25;
+        yEndBound = height-bounds.height()+10;
+        canvas.drawText("End Turn",xEndBound, yEndBound, paint);
+        Rect tBounds = new Rect();
+        paint.getTextBounds("Player " + turn,0, ("Player " + turn).length(), bounds);
+        canvas.drawText("Player " + (turn+1),0, tBounds.height()+50, paint);
     }
     private void play(){
         int turn = 1;
@@ -106,6 +132,7 @@ public class DrawingView extends View
             for(int i = 0; i < players.length; i++) {
                 while(!endTurn) {
                     Player player = players[turn];
+
                 }
             }
         }
