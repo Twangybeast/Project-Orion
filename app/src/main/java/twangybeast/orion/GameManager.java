@@ -12,14 +12,15 @@ public class GameManager
 {
     public int turn = 0;
     public static final int planetNum = 7;
-    public static final int playerNum = 3;
+    public static int playerNum = 3;
     public Planet[] planets;
     public Player[] players;
     public Planet hoveredPlanet = null;
     public Planet selectedPlanet = null;
 
-    public GameManager()
+    public GameManager(int numOfPlayers)
     {
+        playerNum = numOfPlayers;
         planets = new Planet[planetNum];
         players = new Player[playerNum];
         generatePlanets();
