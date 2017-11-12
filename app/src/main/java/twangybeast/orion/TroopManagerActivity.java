@@ -10,7 +10,7 @@ public class TroopManagerActivity
     public static final float DEFENSE_MULTIPLIER = 1.0f;
     public static int getTroopCost(Player player)
     {
-        return player.troopLevel;
+        return Math.max(2, player.troopLevel);
     }
     public static int getUnitStrength(Player player)
     {
