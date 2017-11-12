@@ -48,7 +48,7 @@ public class DrawingView extends View
             xs[i] = posX;
             ys[i] = posY;
 
-            planets[i] = new Planet(posX, posY, natives, 10, 0);
+            planets[i] = new Planet(posX, posY, natives, 10, 0, 1);
         }
 
         for(int i = 0; i < playerNum; i++){
@@ -124,17 +124,5 @@ public class DrawingView extends View
         Rect tBounds = new Rect();
         paint.getTextBounds("Player " + turn,0, ("Player " + turn).length(), bounds);
         canvas.drawText("Player " + (turn+1),0, tBounds.height()+50, paint);
-    }
-    private void play(){
-        int turn = 1;
-        boolean endTurn = false;
-        while(true){
-            for(int i = 0; i < players.length; i++) {
-                while(!endTurn) {
-                    Player player = players[turn];
-
-                }
-            }
-        }
     }
 }
