@@ -62,7 +62,8 @@ public class ScienceManagerActivity
                 available.add(science);
             }
         }
-        return sciences;
+        available.removeAll(researched);
+        return available;
     }
     public Science getScience(String name)
     {

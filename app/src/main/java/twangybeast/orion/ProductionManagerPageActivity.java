@@ -40,7 +40,7 @@ public class ProductionManagerPageActivity extends AppCompatActivity {
         availableImprovements.add(new Improvement(TroopManagerActivity.TROOP_NAME, 0,0,0,TroopManagerActivity.getTroopCost(planet.getOwner())));
         ArrayList<String> improvements = new ArrayList<String>();
         for(Improvement improv : availableImprovements) {
-            improvements.add(improv.getName() + "(" + improv.getCost() + ")");
+            improvements.add(improv.getName() + " (" + improv.getCost() + ")");
         }
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_dropdown_item, improvements);
@@ -50,14 +50,8 @@ public class ProductionManagerPageActivity extends AppCompatActivity {
         Button produce = (Button) findViewById(R.id.button);
         produce.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                String[] st = spinner.getSelectedItem().toString().split("\\(");
-                for(int i = 0; i < FullscreenActivity.gm.pma.getAvailableImprovements(planet).size(); i++){
-                    if(st[0].equals(FullscreenActivity.gm.pma.getAvailableImprovements(planet).get(i).getName())){
-                        planet.setCurrentProduction(new CurrentProduction(FullscreenActivity.gm.pma.getAvailableImprovements(planet).get(i).getName(), FullscreenActivity.gm.pma.getAvailableImprovements(planet).get(i).getCost()));
-                        cPro.setText("Current Production: " + planet.getCurrentProduction().prodName + "(" + planet.getCurrentProduction().cost + ")");
-                        break;
-                    }
-                }
+                FullscreenActivity.gm.pma.selectImprovement(planet, spinner.getSelectedItem().toString());
+                cPro.setText("Current Production: " + planet.getCurrentProduction().prodName + "(" + planet.getCurrentProduction().cost + ")");
             }
         });
     }

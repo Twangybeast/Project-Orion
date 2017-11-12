@@ -32,29 +32,34 @@ public class ScienceManagerPageActivity extends AppCompatActivity {
 //            time =    player.getCurrentResearch().progress + "/" + FullscreenActivity.gm.sma.getScience(player.getCurrentResearch().scienceName).getCost();
 //        }
 //        System.out.println(science_name);
-        cSci.setText("Current Science: " + player.getCurrentResearch().scienceName);
+        cSci.setText("Current Science: \n" + player.getCurrentResearch().scienceName);
 
         final Spinner spinner = (Spinner) findViewById(R.id.spinner);
         List<Science> availableSciences = FullscreenActivity.gm.sma.getAvailableSciences(player.getSciences());
 
         ArrayList<String> sciences = new ArrayList<String>();
         for(Science science : availableSciences) {
-            sciences.add(science.getName() + "(" + science.getCost() + ")");
+            sciences.add(science.getName());
         }
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_dropdown_item, sciences);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(dataAdapter);
-
+        final boolean finishedScience = availableSciences.isEmpty();
         Button produce = (Button) findViewById(R.id.button);
         produce.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                String[] st = spinner.getSelectedItem().toString().split("\\(");
-                for(int i = 0; i < FullscreenActivity.gm.sma.getAvailableSciences(player.getSciences()).size(); i++){
-                    if(st[0].equals(FullscreenActivity.gm.sma.getAvailableSciences(player.getSciences()).get(i).getName())){
-                        player.setCurrentResearch(new CurrentResearch(FullscreenActivity.gm.sma.getAvailableSciences(player.getSciences()).get(i).getName()));
-                        cSci.setText("Current Science: " + player.getCurrentResearch().scienceName);
-                        break;
+                if (!finishedScience)
+                {
+                    String[] st = spinner.getSelectedItem().toString().split("\\(");
+                    for (int i = 0; i < FullscreenActivity.gm.sma.getAvailableSciences(player.getSciences()).size(); i++)
+                    {
+                        if (st[0].equals(FullscreenActivity.gm.sma.getAvailableSciences(player.getSciences()).get(i).getName()))
+                        {
+                            player.setCurrentResearch(new CurrentResearch(FullscreenActivity.gm.sma.getAvailableSciences(player.getSciences()).get(i).getName()));
+                            cSci.setText("Current Science: " + player.getCurrentResearch().scienceName);
+                            break;
+                        }
                     }
                 }
             }

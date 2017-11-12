@@ -8,13 +8,13 @@
 
     <TextView
         android:id="@+id/current_science"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginTop="208dp"
+        android:layout_width="300dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="180dp"
         android:text="Current Science: XX"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,10 +29,10 @@
         android:text="Research"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.755"
+        app:layout_constraintHorizontal_bias="0.875"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/current_science"
-        app:layout_constraintVertical_bias="0.467" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Spinner
         android:id="@+id/spinner"

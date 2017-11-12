@@ -5,16 +5,16 @@
 
     </string-array>
     <string-array name="science1prereq">
-        <item>science0</item>
+        <item>Interstellar Travel</item>
     </string-array>
     <string-array name="science2prereq">
-        <item>science1</item>
+        <item>Nanobots</item>
     </string-array>
     <string-array name="science3prereq">
-        <item>science1</item>
+        <item>Nanobots</item>
     </string-array>
     <string-array name="science4prereq">
-        <item>science2</item>
+        <item>Quantum Computing</item>
     </string-array>
 
     <array name="science0">
@@ -34,21 +34,21 @@
     <array name="science3">
         <item name="name">Cybernetics</item>
         <item name="improvements">@array/science3improvements</item>
-        <item name="cost">8</item>
+        <item name="cost">10</item>
         <item name="prereqs">@array/science3prereq</item>
         <item name="troopIncrease">5</item>
     </array>
     <array name="science2">
         <item name="name">Quantum Computing</item>
         <item name="improvements">@array/science2improvements</item>
-        <item name="cost">9</item>
+        <item name="cost">15</item>
         <item name="prereqs">@array/science2prereq</item>
         <item name="troopIncrease">3</item>
     </array>
     <array name="science4">
         <item name="name">Artificial Intelligence</item>
         <item name="improvements">@array/science4improvements</item>
-        <item name="cost">7</item>
+        <item name="cost">20</item>
         <item name="prereqs">@array/science4prereq</item>
         <item name="troopIncrease">9</item>
     </array>
@@ -56,5 +56,7 @@
         <item>@array/science0</item>
         <item>@array/science1</item>
         <item>@array/science2</item>
+        <item>@array/science3</item>
+        <item>@array/science4</item>
     </array>
 </resources>

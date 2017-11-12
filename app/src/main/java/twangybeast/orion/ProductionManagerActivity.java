@@ -54,13 +54,14 @@ public class ProductionManagerActivity
     }
     public void selectImprovement(Planet planet, String name)
     {
-        planet.getCurrentProduction().prodName = name;
-        if (name.equals(TroopManagerActivity.TROOP_NAME))
+        if (name.startsWith(TroopManagerActivity.TROOP_NAME))
         {
+            planet.getCurrentProduction().prodName = TroopManagerActivity.TROOP_NAME;
             planet.getCurrentProduction().cost = TroopManagerActivity.getTroopCost(planet.getOwner());
         }
         else
         {
+            planet.getCurrentProduction().prodName = getImprovement(name).getName();
             planet.getCurrentProduction().cost = getImprovement(name).getCost();
         }
     }
@@ -84,7 +85,9 @@ public class ProductionManagerActivity
         {
             for (Improvement improvement : sci.getImprovements())
             {
-                if (improvement.getName().equals(name))
+                System.out.println(name);
+                System.out.println(improvement.getName());
+                if (name.startsWith(improvement.getName()))
                 {
                     return improvement;
                 }
