@@ -20,11 +20,11 @@ public class GameManager
     public Player[] players;
     public Planet hoveredPlanet = null;
     public Planet selectedPlanet = null;
-
     public ScienceManagerActivity sma;
     public ProductionManagerActivity pma;
     public List<Science> sciences;
     public AttackEvent ae;
+    
     public GameManager(Resources res, int numOfPlayers)
     {
         playerNum = numOfPlayers;
