@@ -11,6 +11,7 @@ public class Player
     private int color;
     private ArrayList<Science> sciences = new ArrayList<>();
     private CurrentResearch currentResearch = new CurrentResearch(ScienceManagerActivity.FIRST_SCIENCE);
+    public int troopLevel = 1;
     public Player(int c)
     {
         this.color = c;

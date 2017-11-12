@@ -29,6 +29,7 @@ public class ScienceManagerActivity
         if (player.getCurrentResearch().progress >= curResearch.getCost())
         {
             player.getSciences().add(curResearch);
+            player.troopLevel += curResearch.getTroopIncrease();
             List<Science> availableNext = getAvailableSciences(player.getSciences());
             if (availableNext.size() == 0)
             {
