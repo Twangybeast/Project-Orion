@@ -47,6 +47,7 @@ public class DrawingView extends View
             drawContextBox(canvas, paint, gm.hoveredPlanet);
         }
         drawAttackResult(canvas, paint);
+        drawWinner(canvas, paint);
         invalidate();
     }
     private void drawAttackResult(Canvas canvas, Paint paint)
@@ -129,5 +130,22 @@ public class DrawingView extends View
         Rect tBounds = new Rect();
         paint.getTextBounds("Player " + gm.turn,0, ("Player " + gm.turn).length(), bounds);
         canvas.drawText("Player " + (gm.turn + 1),0, tBounds.height()+50, paint);
+    }
+    public void drawWinner(Canvas canvas, Paint paint)
+    {
+        if (gm.winner > 0)
+        {
+            paint.setTextSize(100);
+            int cwidth = width/2;
+            int cheight = height/2;
+            int textX = cwidth/2+50;
+            int textY = cheight/2+50;
+            int lineHeight = 95;
+            paint.setColor(0xFF444444);
+            canvas.drawRect(cwidth/2, cheight/2, (int)(cwidth*1.5f), (int)(cheight*1.5f), paint);
+            paint.setColor(0xFFD4AF37);
+            canvas.drawText("Player "+gm.winner, textX, textY + lineHeight, paint);
+            canvas.drawText("WINS!", textX, textY + lineHeight*2, paint);
+        }
     }
 }

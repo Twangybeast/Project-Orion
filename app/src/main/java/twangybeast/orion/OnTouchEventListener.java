@@ -25,6 +25,10 @@ public class OnTouchEventListener implements View.OnTouchListener
     @Override
     public boolean onTouch(View v, MotionEvent event)
     {
+        if (gm.winner >= 0)
+        {
+            return true;
+        }
         long holdTime = event.getEventTime()-event.getDownTime();
         if (holdTime > HOLD_TIME && down)
         {
