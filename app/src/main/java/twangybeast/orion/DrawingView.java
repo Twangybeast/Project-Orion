@@ -14,7 +14,10 @@ public class DrawingView extends View
     private int width;
     private int height;
     private int planetNum = 9;
+    private int playerNum = 3;
     private Planet[] planets = new Planet[planetNum];
+    private Player[] players = new Player[playerNum+1];
+    private int[] playersColor = {Color.RED, Color.GREEN, Color.BLUE, Color.MAGENTA, Color.CYAN};
     public DrawingView(Context context, int width, int height)
     {
         super(context);
@@ -43,6 +46,12 @@ public class DrawingView extends View
 
             planets[i] = new Planet(posX, posY, natives, 10, 0);
         }
+
+        for(int i = 0; i < playerNum; i++){
+            players[i] = new Player(playersColor[i]);
+            planets[(int)(Math.random()*planets.length)].setOwner(players[i]);
+        }
+        play();
     }
 
     private boolean arrayContainsNear(int[] array, int value) {
@@ -69,10 +78,21 @@ public class DrawingView extends View
             drawPlanet(canvas, paint, planet, 0, 0);
         }
     }
-    public void drawPlanet(Canvas canvas, Paint paint, Planet planet, int dx, int dy)
+    private void drawPlanet(Canvas canvas, Paint paint, Planet planet, int dx, int dy)
     {
         paint.setColor(planet.getColor());
         Point p = Config.getScreenCoordinates(planet.getPosition().x, planet.getPosition().y, width, height);
         canvas.drawCircle(p.x+Config.getCellWidth(width)/2, p.y+Config.getCellHeight(height)/2, (int)(Config.getPlanetDiameter(width, height)/2), paint);
+    }
+    private void play(){
+        int turn = 1;
+        boolean endTurn = false;
+        while(true){
+            for(int i = 0; i < players.length; i++) {
+                while(!endTurn) {
+                    Player player = players[turn];
+                }
+            }
+        }
     }
 }
