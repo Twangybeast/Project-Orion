@@ -24,7 +24,7 @@ public class ProductionManagerPageActivity extends AppCompatActivity {
         Intent intent = getIntent();
         planetIndex = Integer.parseInt(intent.getStringExtra("planet_index"));
 
-        Planet planet = FullscreenActivity.gm.planets[planetIndex];
+        final Planet planet = FullscreenActivity.gm.planets[planetIndex];
         setTitle(planet.getName());
         TextView defense = (TextView) findViewById(R.id.defense);
         defense.setText("Defense: " + planet.getDefense());
@@ -32,18 +32,16 @@ public class ProductionManagerPageActivity extends AppCompatActivity {
         production.setText("Production: " + planet.getProduction());
         TextView troops = (TextView) findViewById(R.id.troops);
         troops.setText("Troops: " + planet.getTroop().getStrength());
-        TextView cPro = (TextView) findViewById(R.id.current_production);
-        cPro.setText("Current Production: " + planet.getCurrentProduction().prodName);
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        final TextView cPro = (TextView) findViewById(R.id.current_production);
+        cPro.setText("Current Production: " + planet.getCurrentProduction().prodName + "(" + planet.getCurrentProduction().cost + ")");
+        final Spinner spinner = (Spinner) findViewById(R.id.spinner);
 
         List<Improvement> availableImprovements = FullscreenActivity.gm.pma.getAvailableImprovements(planet);
         availableImprovements.add(new Improvement(TroopManagerActivity.TROOP_NAME, 0,0,0,TroopManagerActivity.getTroopCost(planet.getOwner())));
-        System.out.println("IMPROVS: " + availableImprovements.size());
         ArrayList<String> improvements = new ArrayList<String>();
         for(Improvement improv : availableImprovements) {
             improvements.add(improv.getName() + "(" + improv.getCost() + ")");
         }
-        System.out.println(improvements);
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_dropdown_item, improvements);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -52,7 +50,14 @@ public class ProductionManagerPageActivity extends AppCompatActivity {
         Button produce = (Button) findViewById(R.id.button);
         produce.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-
+                String[] st = spinner.getSelectedItem().toString().split("\\(");
+                for(int i = 0; i < FullscreenActivity.gm.pma.getAvailableImprovements(planet).size(); i++){
+                    if(st[0].equals(FullscreenActivity.gm.pma.getAvailableImprovements(planet).get(i).getName())){
+                        planet.setCurrentProduction(new CurrentProduction(FullscreenActivity.gm.pma.getAvailableImprovements(planet).get(i).getName(), FullscreenActivity.gm.pma.getAvailableImprovements(planet).get(i).getCost()));
+                        cPro.setText("Current Production: " + planet.getCurrentProduction().prodName + "(" + planet.getCurrentProduction().cost + ")");
+                        break;
+                    }
+                }
             }
         });
     }
