@@ -1,7 +1,9 @@
 package twangybeast.orion;
 
+import android.content.res.Resources;
 import android.graphics.Color;
 
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -11,18 +13,24 @@ import java.util.Random;
 public class GameManager
 {
     public int turn = 0;
+    public int round = 1;
     public static final int planetNum = 7;
     public static final int playerNum = 3;
     public Planet[] planets;
     public Player[] players;
     public Planet hoveredPlanet = null;
     public Planet selectedPlanet = null;
-
-    public GameManager()
+    public ScienceManagerActivity sma;
+    public ProductionManagerActivity pma;
+    public List<Science> sciences;
+    public GameManager(Resources res)
     {
         planets = new Planet[planetNum];
         players = new Player[playerNum];
         generatePlanets();
+        sciences = Science.getSciences(res);
+        sma = new ScienceManagerActivity(sciences);
+        pma = new ProductionManagerActivity(sciences);
     }
 
     public void generatePlanets()
@@ -81,20 +89,24 @@ public class GameManager
         }
         return false;
     }
-
+    public void advanceRound()
+    {
+        for (Player player : players)
+        {
+            sma.advanceScience(player);
+            pma.advanceProduction(player);
+        }
+    }
     public void endTurn()
     {
         if (turn == playerNum - 1)
         {
             turn = 0;
+            round++;
         } else
         {
             turn++;
         }
-    }
-    public void selectPlanet(Planet planet)
-    {
-
     }
 
 }

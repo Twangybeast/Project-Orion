@@ -109,7 +109,7 @@ public class DrawingView extends View
         paint.getTextBounds("End Turn",0, "End Turn".length(), bounds);
         xEndBound = width-bounds.width()-25;
         yEndBound = height-bounds.height()-30;
-        canvas.drawText("End Turn",width-bounds.width(), height- bounds.height(), paint);
+        canvas.drawText("End Turn",width-bounds.width()-10, height-10, paint);
         Rect tBounds = new Rect();
         paint.getTextBounds("Player " + gm.turn,0, ("Player " + gm.turn).length(), bounds);
         canvas.drawText("Player " + (gm.turn+1),0, tBounds.height()+50, paint);

@@ -32,7 +32,7 @@ public class FullscreenActivity extends AppCompatActivity {
         SCREEN_WIDTH = getScreenWidth();
         SCREEN_HEIGHT = getScreenHeight();
 
-        gm = new GameManager();
+        gm = new GameManager(getResources());
         drawingView = new DrawingView(this, SCREEN_WIDTH, SCREEN_HEIGHT, gm);
         drawingView.setLayoutParams(new ViewGroup.LayoutParams(getScreenWidth(), getScreenHeight()));
 
