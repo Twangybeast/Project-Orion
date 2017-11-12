@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="improvement0">
+        <item name="name">Factory Level 1</item>
+        <item name="science">0</item>
+        <item name="defense">0</item>
+        <item name="production">1</item>
+        <item name="cost">1</item>
+    </array>
+    <array name="improvement1">
+        <item name="name">Planetary Defense Level 1</item>
+        <item name="science">0</item>
+        <item name="defense">1</item>
+        <item name="production">0</item>
+        <item name="cost">1</item>
+    </array>
+    <array name="improvement2">
+        <item name="name">Research Lab Level 1</item>
+        <item name="science">1</item>
+        <item name="defense">0</item>
+        <item name="production">0</item>
+        <item name="cost">1</item>
+    </array>
+    <array name="science0improvements">
+        <item>@array/improvement0</item>
+        <item>@array/improvement1</item>
+        <item>@array/improvement2</item>
+    </array>
+</resources>

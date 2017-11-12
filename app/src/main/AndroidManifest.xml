@@ -27,11 +27,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".SelectionActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_selection"
             android:theme="@style/FullscreenTheme"></activity>
+        <activity android:name=".ProductionManagerPageActivity"></activity>
+
     </application>
 
 </manifest>
