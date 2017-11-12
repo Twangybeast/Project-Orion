@@ -68,9 +68,6 @@ public class OnTouchEventListener implements View.OnTouchListener
                 gm.selectedPlanet = null;
                 break;
         }
-        System.out.println(event.getAction());
-        long eventDuration = event.getEventTime() - event.getDownTime(); // in milliseconds
-        //view.touchAt(event.getX(), event.getY(), eventDuration, event);
         return true;
     }
     public boolean collideEndTurn(int x, int y)
