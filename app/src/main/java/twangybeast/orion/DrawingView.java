@@ -11,10 +11,10 @@ public class DrawingView extends View
     private static final int BACKGROUND = 0xFF080808;
     private Paint paint;
     private Context context;
-    private Planet[] planets;
     private int width;
     private int height;
-    private int planetNum = 14;
+    private int planetNum = 9;
+    private Planet[] planets = new Planet[planetNum];
     public DrawingView(Context context, int width, int height)
     {
         super(context);
@@ -25,10 +25,40 @@ public class DrawingView extends View
         paint.setColor(0xFF000000);
         paint.setAntiAlias(true);
         Player natives = new Player(Color.rgb(200, 200, 200));
-        planets = new Planet[] {new Planet(1, 5, natives, 10, 0), new Planet(4, 8, natives, 10, 0), new Planet(8, 16, natives, 10, 0), new Planet(10, 19, natives, 10, 0), new Planet(5, 13, natives, 10, 0), new Planet(2, 1, natives, 10, 0), new Planet(6, 7, natives, 10, 0), new Planet(8, 2, natives, 10, 0)};
 
+        int[] xs = new int[planetNum];
+        int[] ys = new int[planetNum];
 
+        Random seed = new Random();
+
+        for(int i = 0; i < planetNum; ++i) {
+            int posX;
+            int posY;
+            do {
+                posX = seed.nextInt(Config.GRID_WIDTH - 2) + 1;
+                posY = seed.nextInt(Config.GRID_HEIGHT - 2) + 1;
+            } while(arrayContainsNear(xs, posX) && arrayContainsNear(ys, posY));
+            xs[i] = posX;
+            ys[i] = posY;
+
+            planets[i] = new Planet(posX, posY, natives, 10, 0);
+        }
     }
+
+    private boolean arrayContainsNear(int[] array, int value) {
+        for(int val : array) {
+            if(val == value || val == value - 1 || val == value + 1) {
+                return true;
+            }
+            if(val == value - 2 || val == value + 2) {
+                if(Math.random() < 0.5) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     @Override
     public void onDraw(Canvas canvas)
     {
