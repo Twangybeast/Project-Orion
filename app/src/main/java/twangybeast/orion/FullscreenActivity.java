@@ -23,7 +23,7 @@ public class FullscreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_fullscreen);
-
+        
         //idk what i'm doing
         drawingView = new DrawingView(this, getScreenWidth(), getScreenHeight());
         drawingView.setLayoutParams(new ViewGroup.LayoutParams(getScreenWidth(), getScreenHeight()));

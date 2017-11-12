@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="science0prereq">
+    </string-array>
+    <array name="science0">
+        <item name="name">Science Level 1</item>
+        <item name="improvements">@array/science0improvements</item>
+        <item name="cost">5</item>
+        <item name="prereqs">@array/science0prereq</item>
+    </array>
+    <array name="sciences">
+        <item>@array/science0</item>
+    </array>
+</resources>
