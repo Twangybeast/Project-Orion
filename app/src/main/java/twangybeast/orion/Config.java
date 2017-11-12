@@ -1,6 +1,5 @@
 package twangybeast.orion;
 
-
 import android.graphics.*;
 
 public class Config

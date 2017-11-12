@@ -68,6 +68,21 @@ public class DrawingView extends View
         return false;
     }
 
+    public Planet touchAt(float x, float y) {
+        for(Planet planet : planets) {
+            Point planetPosition = planet.getPositionInPixels();
+            float changeX = planetPosition.x - x;
+            float changeY = planetPosition.y - y;
+            double distance = Math.sqrt((changeX*changeX + changeY*changeY));
+
+            if(Config.getPlanetDiameter(width, height) >= distance) {
+                System.out.println("PLANET TOUCHED");
+                return planet;
+            }
+        }
+        return null;
+    }
+
     @Override
     public void onDraw(Canvas canvas)
     {
