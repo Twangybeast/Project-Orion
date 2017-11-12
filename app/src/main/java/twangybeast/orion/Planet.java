@@ -12,13 +12,14 @@ public class Planet
     private int x;
     private int y;
     private Player owner;
-    private int production;
-    private int defense;
-    private int science;
+    public int production;
+    public int defense;
+    public int science;
     private int color = Color.rgb(200, 200, 200);
     private ArrayList<Improvement> improvements = new ArrayList<Improvement>();
     private ArrayList<Troop> troops = new ArrayList<>();
-    private CurrentProduction currentProduction = new CurrentProduction();
+    //TO DO CHANGE DEFAULT PRODUCTION
+    private CurrentProduction currentProduction;
     public Planet(int x, int y, Player player, int production, int defense, int science)
     {
         this.x = x;
@@ -27,6 +28,7 @@ public class Planet
         this.production = production;
         this.defense = defense;
         this.science = science;
+        currentProduction = new CurrentProduction(TroopManagerActivity.TROOP_NAME, TroopManagerActivity.getTroopCost(owner));
     }
 
     public int getColor()
@@ -87,6 +89,26 @@ public class Planet
     public void setScience(int science)
     {
         this.science = science;
+    }
+
+    public CurrentProduction getCurrentProduction()
+    {
+        return currentProduction;
+    }
+
+    public void setCurrentProduction(CurrentProduction currentProduction)
+    {
+        this.currentProduction = currentProduction;
+    }
+
+    public ArrayList<Improvement> getImprovements()
+    {
+        return improvements;
+    }
+
+    public void setImprovements(ArrayList<Improvement> improvements)
+    {
+        this.improvements = improvements;
     }
 
     private void refreshColor()

@@ -42,6 +42,10 @@ public class ScienceManagerActivity
         }
         return false;
     }
+    public void selectScience(Player player, String science)
+    {
+        player.getCurrentResearch().scienceName = science;
+    }
     public List<Science> getAvailableSciences(List<Science> researched)
     {
         List<Science> available = new LinkedList<>();
