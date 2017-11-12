@@ -1,12 +1,15 @@
 package twangybeast.orion;
 
+import android.graphics.Rect;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -38,7 +41,7 @@ public class FullscreenActivity extends AppCompatActivity {
     }
     public int getScreenHeight()
     {
-        return getApplicationContext().getResources().getDisplayMetrics().heightPixels-getActionBarHeight();
+        return getApplicationContext().getResources().getDisplayMetrics().heightPixels-getBarHeights();
     }
     public int getActionBarHeight()
     {
@@ -48,5 +51,19 @@ public class FullscreenActivity extends AppCompatActivity {
             return TypedValue.complexToDimensionPixelSize(tv.data,getResources().getDisplayMetrics());
         }
         return 0;
+    }
+    public int getBarHeights()
+    {
+        return getActionBarHeight()+getStatusBarHeight();
+    }
+    public int getStatusBarHeight()
+    {
+        int result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        System.out.println(result);
+        return result;
     }
 }

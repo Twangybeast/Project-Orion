@@ -8,6 +8,7 @@ import java.util.*;
 
 public class DrawingView extends View
 {
+    private static final int BACKGROUND = 0xFF080808;
     private Paint paint;
     private Context context;
     private Set<Planet> planets;
@@ -35,14 +36,13 @@ public class DrawingView extends View
     @Override
     public void onDraw(Canvas canvas)
     {
-        canvas.drawColor(Color.rgb(255, 255, 255));
+        canvas.drawColor(BACKGROUND);
         for (Planet planet : planets)
         {
-            drawPlanet(canvas, paint, planet);
+            drawPlanet(canvas, paint, planet, 0, 0);
         }
-        canvas.drawRect(0,1,width-1, height-1, paint);
     }
-    public void drawPlanet(Canvas canvas, Paint paint, Planet planet)
+    public void drawPlanet(Canvas canvas, Paint paint, Planet planet, int dx, int dy)
     {
         paint.setColor(planet.color);
         Point p = Config.getScreenCoordinates(planet.x, planet.y, width, height);
