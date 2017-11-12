@@ -26,6 +26,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:id="@+id/four"
         android:layout_width="147dp"
         android:layout_height="148dp"
         android:layout_marginBottom="16dp"
@@ -45,6 +46,7 @@
         app:layout_constraintVertical_bias="0.919" />
 
     <Button
+        android:id="@+id/two"
         android:layout_width="147dp"
         android:layout_height="148dp"
         android:layout_marginBottom="16dp"
@@ -64,6 +66,7 @@
         app:layout_constraintVertical_bias="0.498" />
 
     <Button
+        android:id="@+id/three"
         android:layout_width="147dp"
         android:layout_height="148dp"
         android:layout_marginBottom="16dp"

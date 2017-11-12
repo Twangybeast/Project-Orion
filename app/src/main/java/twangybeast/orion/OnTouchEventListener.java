@@ -39,7 +39,14 @@ public class OnTouchEventListener implements View.OnTouchListener
                     Context context = view.getContext();
 
                     Intent intent = new Intent(context, ProductionManagerPageActivity.class);
-                    intent.putExtra("PLANET", "test");
+                    int index = gm.planets.length - 1;
+                    for(int i = 0; i < gm.planets.length - 1; i++){
+                        if(planet.equals(gm.planets[i])){
+                            index = i;
+                            break;
+                        }
+                    }
+                    intent.putExtra("planet_index", String.valueOf(index));
                     context.startActivity(intent);
                 }
             }

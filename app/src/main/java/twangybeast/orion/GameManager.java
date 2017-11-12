@@ -20,7 +20,7 @@ public class GameManager
     public Player[] players;
     public Planet hoveredPlanet = null;
     public Planet selectedPlanet = null;
-	
+    private String[] planetNames = {"Hopper", "Kepler", "Hubble", "Brahe", "Halley", "Sagan", "Hawking"};
     public ScienceManagerActivity sma;
     public ProductionManagerActivity pma;
     public List<Science> sciences;
@@ -56,7 +56,7 @@ public class GameManager
             xs[i] = posX;
             ys[i] = posY;
 
-            planets[i] = new Planet(posX, posY, natives, 10, 0, 1);
+            planets[i] = new Planet(planetNames[i], posX, posY, natives, 10, 0, 1);
         }
 
         for (int i = 0; i < playerNum; i++)
