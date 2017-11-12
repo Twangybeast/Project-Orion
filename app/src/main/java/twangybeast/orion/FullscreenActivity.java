@@ -1,5 +1,7 @@
 package twangybeast.orion;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -96,6 +98,12 @@ public class FullscreenActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.science) {
             System.out.println("SCIENCE CLICKED");
+
+            Intent intent = new Intent(this, ScienceManagerPageActivity.class);
+            intent.putExtra("player_index", String.valueOf(gm.turn));
+            this.startActivity(intent);
+
+
             return true;
         }
         return super.onOptionsItemSelected(item);
