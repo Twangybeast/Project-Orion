@@ -11,6 +11,7 @@ public class OnTouchEventListener implements View.OnTouchListener
 {
     public static final int TAP_TIME = 1000;//Max time to be considered a tap
     public static final int HOLD_TIME = 1500; //Min time to be considered a hold
+    public static final int DEFAULT_SENSITIVITY = 10;
     DrawingView view;
     Point downPos;
     GameManager gm;
@@ -27,7 +28,7 @@ public class OnTouchEventListener implements View.OnTouchListener
         long holdTime = event.getEventTime()-event.getDownTime();
         if (holdTime > HOLD_TIME && down)
         {
-            Planet planet = collidePlanet(downPos.x, downPos.y, (int)event.getX(), (int)event.getY());
+            Planet planet = collidePlanet(downPos.x, downPos.y, (int)event.getX(), (int)event.getY(), DEFAULT_SENSITIVITY);
             if (planet != null)
             {
                 if (gm.selectedPlanet == null && gm.players[gm.turn]==planet.getOwner())
@@ -61,10 +62,11 @@ public class OnTouchEventListener implements View.OnTouchListener
                             gm.endTurn();
                         }
                     }
-                    Planet planet = collidePlanet(downPos.x, downPos.y, (int)event.getX(), (int)event.getY());
+                    Planet planet = collidePlanet(downPos.x, downPos.y, (int)event.getX(), (int)event.getY(), DEFAULT_SENSITIVITY);
                     System.out.println(planet);
                     gm.hoveredPlanet = planet;
                 }
+                
                 gm.selectedPlanet = null;
                 break;
         }
@@ -74,26 +76,30 @@ public class OnTouchEventListener implements View.OnTouchListener
     {
         return x >= view.xEndBound && y >= view.yEndBound;
     }
-    public Planet collidePlanet(int x, int y)
+    public Planet collidePlanet(int x, int y, int sensitivity)
     {
+        Planet closest = null;
+        double minDist = Double.MAX_EXPONENT;
         for (Planet planet : gm.planets)
         {
             Point planetPosition = planet.getPositionInPixels();
-            float changeX = planetPosition.x - x;
-            float changeY = planetPosition.y - y;
-            double distance = Math.sqrt((changeX * changeX + changeY * changeY));
-
-            if (Config.getPlanetDiameter(view.getWidth(), view.getHeight()) + 10 >= distance)
+            double distance = Math.hypot(planetPosition.x - x, planetPosition.y-y);
+            if (distance < minDist)
             {
-                return planet;
+                closest = planet;
+                minDist = distance;
             }
+        }
+        if (minDist <= Config.getPlanetDiameter(view.getWidth(), view.getHeight())+sensitivity)
+        {
+            return closest;
         }
         return null;
     }
-    public Planet collidePlanet(int x, int y, int newX, int newY)
+    public Planet collidePlanet(int x, int y, int newX, int newY, int sensitivity)
     {
-        Planet planet = collidePlanet(x, y);
-        if (collidePlanet(newX, newY)== planet)
+        Planet planet = collidePlanet(x, y, sensitivity);
+        if (collidePlanet(newX, newY, sensitivity)== planet)
         {
             return planet;
         }

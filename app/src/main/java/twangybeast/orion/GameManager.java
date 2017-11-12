@@ -103,6 +103,7 @@ public class GameManager
         {
             turn = 0;
             round++;
+            advanceRound();
         } else
         {
             turn++;
