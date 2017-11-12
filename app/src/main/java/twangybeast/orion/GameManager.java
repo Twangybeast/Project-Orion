@@ -35,8 +35,9 @@ public class GameManager
     public ProductionManagerActivity pma;
     public List<Science> sciences;
     public AttackEvent ae;
+
     public static Context context;
-    public int troopNum = -1;
+    public int winner = -1;
     public GameManager(Resources res, int numOfPlayers, Context context)
     {
         playerNum = numOfPlayers;
@@ -70,7 +71,7 @@ public class GameManager
             xs[i] = posX;
             ys[i] = posY;
 
-            planets[i] = new Planet(planetNames[i], posX, posY, natives, 10, 0, 1);
+            planets[i] = new Planet(planetNames[i], posX, posY, natives, 2, 0, 1);
         }
 
         for (int i = 0; i < playerNum; i++)
@@ -151,8 +152,8 @@ public class GameManager
     }
     public void endgame()
     {
-        System.out.println("GAME OVER, Player #"+turn+" wins!");
-        //TODO win screen
+        System.out.println("GAME OVER, Player #"+(turn+1)+" wins!");
+        winner = turn+1;
     }
     public AlertDialog.Builder promptForTroop(String planetName, final int maxTroops)
     {

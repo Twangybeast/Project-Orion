@@ -41,6 +41,7 @@ public class TroopManagerActivity
         int defenseStart = defenseStrength;
         attackingStrength -= defenseStart *0.7;
         defender.getTroop().removeStrength((int)(attackStart*0.6));
+        attackingStrength = Math.max(0, attackingStrength);
         if (defender.getTroop().getStrength() == 0)
         {
             capturePlanet(attacker, defender);
