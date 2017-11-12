@@ -37,7 +37,7 @@ public class Improvement
         TypedArray ta = res.obtainTypedArray(id);
         int i = 0;
         int arrayId;
-        while(true)
+        while(i < ta.length())
         {
             arrayId = ta.getResourceId(i, 0);
             if (arrayId==0)
