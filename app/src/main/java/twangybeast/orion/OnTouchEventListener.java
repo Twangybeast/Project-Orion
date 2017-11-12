@@ -11,7 +11,7 @@ public class OnTouchEventListener implements View.OnTouchListener
 {
     public static final int TAP_TIME = 1000;//Max time to be considered a tap
     public static final int HOLD_TIME = 1500; //Min time to be considered a hold
-    public static final int DEFAULT_SENSITIVITY = 10;
+    public static final int DEFAULT_SENSITIVITY = 30;
     DrawingView view;
     Point downPos;
     GameManager gm;

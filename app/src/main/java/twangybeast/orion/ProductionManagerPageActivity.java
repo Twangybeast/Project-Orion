@@ -33,7 +33,7 @@ public class ProductionManagerPageActivity extends AppCompatActivity {
         TextView troops = (TextView) findViewById(R.id.troops);
         troops.setText("Troops: " + planet.getTroop().getStrength());
         TextView cPro = (TextView) findViewById(R.id.current_production);
-        cPro.setText("Current Production: " + planet.getCurrentProduction());
+        cPro.setText("Current Production: " + planet.getCurrentProduction().prodName);
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
 
         List<Improvement> availableImprovements = FullscreenActivity.gm.pma.getAvailableImprovements(planet);
