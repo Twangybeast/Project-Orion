@@ -9,120 +9,27 @@ import java.util.*;
 public class DrawingView extends View
 {
     private static final int BACKGROUND = 0xFF080808;
-    private boolean didSomething = false;
-    private int turn = 0;
     private Paint paint;
     private Context context;
-    private int xEndBound;
-    private int yEndBound;
+    public int xEndBound;
+    public int yEndBound;
     private int width;
     private int height;
-    private int planetNum = 7;
-    private int playerNum = 3;
-    private Planet[] planets = new Planet[planetNum];
-    private Player[] players = new Player[playerNum];
-    private int[] playersColor = {Color.RED, Color.GREEN, Color.BLUE, Color.MAGENTA, Color.CYAN};
-    private Planet hoveredPlanet = null;
-    private Planet selectedPlanet = null;
-
-    public DrawingView(Context context, int width, int height)
+    public static final int[] PLAYERS_COLOR = {Color.RED, Color.GREEN, Color.BLUE, Color.MAGENTA, Color.CYAN};
+    public GameManager gm;
+    public DrawingView(Context context, int width, int height, GameManager gm)
     {
         super(context);
         this.context = context;
         this.width = width;
         this.height = height;
+        this.gm = gm;
         paint = new Paint();
         paint.setColor(0xFF000000);
         paint.setAntiAlias(true);
-        Player natives = new Player(Color.rgb(200, 200, 200));
 
-        int[] xs = new int[planetNum];
-        int[] ys = new int[planetNum];
 
-        Random seed = new Random();
-
-        for(int i = 0; i < planetNum; ++i) {
-            int posX;
-            int posY;
-            do {
-                posX = seed.nextInt(Config.GRID_WIDTH - 2) + 1;
-                posY = seed.nextInt(Config.GRID_HEIGHT - 2) + 1;
-            } while(arrayContainsNear(xs, posX) && arrayContainsNear(ys, posY));
-            xs[i] = posX;
-            ys[i] = posY;
-
-            planets[i] = new Planet(posX, posY, natives, 10, 0, 1);
-        }
-
-        for(int i = 0; i < playerNum; i++){
-            players[i] = new Player(playersColor[i]);
-            int playerPlanet;
-            do
-            {
-                 playerPlanet = seed.nextInt(planetNum);
-
-            }
-            while (planets[playerPlanet].getOwner() != natives);
-            planets[playerPlanet].setOwner(players[i]);
-            players[i].getPlanets().add(planets[playerPlanet]);
-        }
         //play();
-    }
-
-    private boolean arrayContainsNear(int[] array, int value) {
-        for(int val : array) {
-            if(val == value || val == value - 1 || val == value + 1) {
-                return true;
-            }
-            if(val == value - 2 || val == value + 2) {
-                if(Math.random() < 0.5) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    public void touchAt(float x, float y, long heldDuration) {
-
-        if(x >= xEndBound && y >= yEndBound && didSomething){
-            if(turn == playerNum-1){
-                turn = 0;
-            } else {
-                turn++;
-            }
-            didSomething = false;
-        } else {
-            didSomething = true;
-            for(Planet planet : planets) {
-                Point planetPosition = planet.getPositionInPixels();
-                float changeX = planetPosition.x - x;
-                float changeY = planetPosition.y - y;
-                double distance = Math.sqrt((changeX*changeX + changeY*changeY));
-
-                if(Config.getPlanetDiameter(width, height) + 10 >= distance) {
-                    if(hoveredPlanet != null && hoveredPlanet.equals(planet) && selectedPlanet == null) {
-                        if(heldDuration > 1500) {
-                            selectedPlanet = hoveredPlanet;
-                            System.out.println("HELD FOR MORE THAN TWO SECONDS");
-
-                            Context context = this.getContext();
-
-                            Intent intent = new Intent(context, ProductionManagerPageActivity.class);
-                            intent.putExtra("PLANET", "test");
-                            context.startActivity(intent);
-                        }
-                    } else {
-                        hoveredPlanet = planet;
-                    }
-
-                    return;
-                }
-            }
-        }
-
-        hoveredPlanet = null;
-        selectedPlanet = null;
     }
 
     @Override
@@ -130,15 +37,14 @@ public class DrawingView extends View
     {
         canvas.drawColor(BACKGROUND);
 
-        for (Planet planet : planets)
+        for (Planet planet : gm.planets)
         {
             drawPlanet(canvas, paint, planet, 0, 0);
         }
-
-        if(hoveredPlanet != null) {
-            drawContextBox(canvas, paint, hoveredPlanet);
+        drawTurn(canvas, paint);
+        if(gm.hoveredPlanet != null) {
+            drawContextBox(canvas, paint, gm.hoveredPlanet);
         }
-
         invalidate();
     }
 
@@ -194,15 +100,18 @@ public class DrawingView extends View
         Point p = Config.getScreenCoordinates(planet.getPosition().x, planet.getPosition().y, width, height);
         canvas.drawCircle(p.x+Config.getCellWidth(width)/2, p.y+Config.getCellHeight(height)/2, (int)(Config.getPlanetDiameter(width, height)/2), paint);
 
-        paint.setColor(players[turn].getColor());
+    }
+    public void drawTurn(Canvas canvas, Paint paint)
+    {
+        paint.setColor(gm.players[gm.turn].getColor());
         paint.setTextSize(50);
         Rect bounds = new Rect();
         paint.getTextBounds("End Turn",0, "End Turn".length(), bounds);
         xEndBound = width-bounds.width()-25;
-        yEndBound = height-bounds.height()+10;
-        canvas.drawText("End Turn",xEndBound, yEndBound, paint);
+        yEndBound = height-bounds.height()-30;
+        canvas.drawText("End Turn",width-bounds.width()-10, height-20, paint);
         Rect tBounds = new Rect();
-        paint.getTextBounds("Player " + turn,0, ("Player " + turn).length(), bounds);
-        canvas.drawText("Player " + (turn+1),0, tBounds.height()+50, paint);
+        paint.getTextBounds("Player " + gm.turn,0, ("Player " + gm.turn).length(), bounds);
+        canvas.drawText("Player " + (gm.turn+1),0, tBounds.height()+50, paint);
     }
 }

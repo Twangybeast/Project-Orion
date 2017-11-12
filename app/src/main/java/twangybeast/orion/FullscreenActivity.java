@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class FullscreenActivity extends AppCompatActivity {
     private DrawingView drawingView;
-
+    private GameManager gm;
     public static int SCREEN_WIDTH;
     public static int SCREEN_HEIGHT;
 
@@ -29,13 +29,21 @@ public class FullscreenActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_fullscreen);
 
+        int numPlayers = 3;
+
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            numPlayers = Integer.parseInt(extras.getString("playerNum"));
+        }
+
         SCREEN_WIDTH = getScreenWidth();
         SCREEN_HEIGHT = getScreenHeight();
 
-        drawingView = new DrawingView(this, SCREEN_WIDTH, SCREEN_HEIGHT);
+        gm = new GameManager(getResources(), numPlayers);
+        drawingView = new DrawingView(this, SCREEN_WIDTH, SCREEN_HEIGHT, gm);
         drawingView.setLayoutParams(new ViewGroup.LayoutParams(getScreenWidth(), getScreenHeight()));
 
-        drawingView.setOnTouchListener(new OnTouchEventListener(FullscreenActivity.this, drawingView));
+        drawingView.setOnTouchListener(new OnTouchEventListener(FullscreenActivity.this, drawingView, gm));
 
         setContentView(drawingView);
     }
