@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class ScienceManagerActivity
 {
-    public static final String FIRST_SCIENCE = "Science Level 1";
+    public static final String FIRST_SCIENCE = "Interstellar Travel";
     List<Science> sciences;
     public ScienceManagerActivity(List<Science> sciences)
     {
