@@ -47,7 +47,7 @@ public class ProductionManagerActivity
             }
         }
     }
-    public int getTurnsToFinish(Planet planet)
+    public static int getTurnsToFinish(Planet planet)
     {
         return (int)Math.ceil((1.0*planet.getCurrentProduction().cost-planet.getCurrentProduction().progress)/planet.getProduction());
     }
