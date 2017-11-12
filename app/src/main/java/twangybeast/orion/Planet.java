@@ -35,9 +35,14 @@ public class Planet {
         this.x = x;
         this.y = y;
     }
-    public Point getPosition(){
+    public Point getPosition() {
         return new Point(x, y);
     }
+
+    public Point getPositionInPixels() {
+        return Config.getScreenCoordinates(x, y, FullscreenActivity.SCREEN_WIDTH, FullscreenActivity.SCREEN_HEIGHT);
+    }
+
     public void setOwner(Player player){
         this.owner = player;
         setColor();

@@ -18,15 +18,23 @@ import android.view.Window;
 public class FullscreenActivity extends AppCompatActivity {
     private DrawingView drawingView;
 
+    public static int SCREEN_WIDTH;
+    public static int SCREEN_HEIGHT;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_fullscreen);
 
-        //idk what i'm doing
-        drawingView = new DrawingView(this, getScreenWidth(), getScreenHeight());
+        SCREEN_WIDTH = getScreenWidth();
+        SCREEN_HEIGHT = getScreenHeight();
+
+        drawingView = new DrawingView(this, SCREEN_WIDTH, SCREEN_HEIGHT);
         drawingView.setLayoutParams(new ViewGroup.LayoutParams(getScreenWidth(), getScreenHeight()));
+
+        drawingView.setOnTouchListener(new OnTouchEventListener(FullscreenActivity.this, drawingView));
+
         setContentView(drawingView);
     }
 
