@@ -14,7 +14,8 @@ public class OnTouchEventListener implements View.OnTouchListener {
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        view.touchAt(event.getX(), event.getY());
+        long eventDuration = event.getEventTime() - event.getDownTime(); // in milliseconds
+        view.touchAt(event.getX(), event.getY(), eventDuration);
 
         return true;
     }
