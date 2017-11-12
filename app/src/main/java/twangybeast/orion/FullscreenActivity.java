@@ -29,10 +29,17 @@ public class FullscreenActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_fullscreen);
 
+        int numPlayers = 3;
+
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            numPlayers = Integer.parseInt(extras.getString("playerNum"));
+        }
+
         SCREEN_WIDTH = getScreenWidth();
         SCREEN_HEIGHT = getScreenHeight();
 
-        gm = new GameManager(getResources());
+        gm = new GameManager(getResources(), numPlayers);
         drawingView = new DrawingView(this, SCREEN_WIDTH, SCREEN_HEIGHT, gm);
         drawingView.setLayoutParams(new ViewGroup.LayoutParams(getScreenWidth(), getScreenHeight()));
 

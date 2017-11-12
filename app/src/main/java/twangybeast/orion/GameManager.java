@@ -24,7 +24,7 @@ public class GameManager
     public ProductionManagerActivity pma;
     public List<Science> sciences;
     public AttackEvent ae;
-    
+
     public GameManager(Resources res, int numOfPlayers)
     {
         playerNum = numOfPlayers;
