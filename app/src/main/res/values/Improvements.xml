@@ -5,21 +5,21 @@
         <item name="science">0</item>
         <item name="defense">0</item>
         <item name="production">1</item>
-        <item name="cost">1</item>
+        <item name="cost">3</item>
     </array>
     <array name="improvement1">
         <item name="name">Planetary Defense System</item>
         <item name="science">0</item>
         <item name="defense">1</item>
         <item name="production">0</item>
-        <item name="cost">1</item>
+        <item name="cost">3</item>
     </array>
     <array name="improvement2">
         <item name="name">Research Lab</item>
         <item name="science">1</item>
         <item name="defense">0</item>
         <item name="production">0</item>
-        <item name="cost">1</item>
+        <item name="cost">3</item>
     </array>
 
     <array name="improvement3">
@@ -27,7 +27,7 @@
         <item name="science">2</item>
         <item name="defense">0</item>
         <item name="production">3</item>
-        <item name="cost">2</item>
+        <item name="cost">3</item>
     </array>
     <array name="improvement4">
         <item name="name">Bioengineering</item>
