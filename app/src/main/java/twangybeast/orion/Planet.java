@@ -6,35 +6,38 @@ import android.graphics.Point;
 
 import java.util.ArrayList;
 
-/**
- * Created by ajay on 11/11/17.
- */
 
-public class Planet {
+public class Planet
+{
     private int x;
     private int y;
     private Player owner;
-    private double production;
-    private double defense;
-    private int color = Color.rgb(200,200,200);
+    private int production;
+    private int defense;
+    private int color = Color.rgb(200, 200, 200);
     private ArrayList<Improvement> improvements = new ArrayList<Improvement>();
-    private ArrayList<Troop> troops = new ArrayList<Troop>();
-    private ArrayList<Resource> resources = new ArrayList<Resource>();
+    private ArrayList<Troop> troops = new ArrayList<>();
 
-    public Planet(int x, int y, Player player, double production, double defense){
-        setPosition(x, y);
-        setOwner(player);
-        setProduction(production);
-        setDefense(defense);
-
+    public Planet(int x, int y, Player player, int production, int defense)
+    {
+        this.x = x;
+        this.y = y;
+        this.owner = player;
+        this.production = production;
+        this.defense = defense;
     }
-    public int getColor(){
+
+    public int getColor()
+    {
         return color;
     }
-    public void setPosition(int x, int y){
+
+    public void setPosition(int x, int y)
+    {
         this.x = x;
         this.y = y;
     }
+
     public Point getPosition() {
         return new Point(x, y);
     }
@@ -43,26 +46,39 @@ public class Planet {
         return Config.getScreenCoordinates(x, y, FullscreenActivity.SCREEN_WIDTH, FullscreenActivity.SCREEN_HEIGHT);
     }
 
-    public void setOwner(Player player){
+    public void setOwner(Player player)
+    {
         this.owner = player;
-        setColor();
+        refreshColor();
     }
-    public Player getOwner(){
+
+    public Player getOwner()
+    {
         return owner;
     }
-    public void setProduction(double amount){
+
+    public void setProduction(int amount)
+    {
         this.production = amount;
     }
-    public double getProduction(){
+
+    public int getProduction()
+    {
         return production;
     }
-    public void setDefense(double amount){
+
+    public void setDefense(int amount)
+    {
         this.defense = amount;
     }
-    public double getDefense(){
+
+    public int getDefense()
+    {
         return defense;
     }
-    private void setColor(){
+
+    private void refreshColor()
+    {
         this.color = owner.getColor();
     }
 }
