@@ -21,6 +21,9 @@ public class Planet
     private Troop troop;
     //TO DO CHANGE DEFAULT PRODUCTION
     private CurrentProduction currentProduction;
+
+    public double moonAngle;
+
     public Planet(String name, int x, int y, Player player, int production, int defense, int science)
     {
         this.name = name;
@@ -33,6 +36,9 @@ public class Planet
         troop.addStrength(2);
         this.y = y;
         currentProduction = new CurrentProduction(TroopManagerActivity.TROOP_NAME, TroopManagerActivity.getTroopCost(owner));
+
+        this.moonAngle = Math.random();
+
     }
     public String getName(){
         return this.name;

@@ -54,6 +54,31 @@ public class GameManager
     public void generatePlanets()
     {
         Player natives = new Player(Color.rgb(200, 200, 200));
+
+        allocatePlanets(natives);
+
+        Random seed = new Random();
+
+        for (int i = 0; i < playerNum; i++)
+        {
+            players[i] = new Player(DrawingView.PLAYERS_COLOR[i]);
+            int playerPlanet;
+            do
+            {
+                playerPlanet = seed.nextInt(planetNum);
+            }
+            while (planets[playerPlanet].getOwner() != natives);
+            Planet playerPlanetObj = planets[playerPlanet];
+            playerPlanetObj.setOwner(players[i]);
+
+            // set 'home base' planet's defense to 2 higher
+            playerPlanetObj.setDefense(playerPlanetObj.getDefense() + 2);
+
+            players[i].getPlanets().add(planets[playerPlanet]);
+        }
+    }
+
+    private void allocatePlanets(Player natives) {
         int[] xs = new int[planetNum];
         int[] ys = new int[planetNum];
 
@@ -74,20 +99,6 @@ public class GameManager
             ys[i] = posY;
 
             planets[i] = new Planet(planetNames[i], posX, posY, natives, 2, 0, 1);
-        }
-
-        for (int i = 0; i < playerNum; i++)
-        {
-            players[i] = new Player(DrawingView.PLAYERS_COLOR[i]);
-            int playerPlanet;
-            do
-            {
-                playerPlanet = seed.nextInt(planetNum);
-
-            }
-            while (planets[playerPlanet].getOwner() != natives);
-            planets[playerPlanet].setOwner(players[i]);
-            players[i].getPlanets().add(planets[playerPlanet]);
         }
     }
 

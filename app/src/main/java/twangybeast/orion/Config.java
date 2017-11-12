@@ -4,8 +4,8 @@ import android.graphics.*;
 
 public class Config
 {
-    public static int GRID_WIDTH = 10;
-    public static int GRID_HEIGHT = 16;
+    public static int GRID_WIDTH = 12;
+    public static int GRID_HEIGHT = 18;
     public static Point getScreenCoordinates(int x, int y, int width, int height)
     {
         return new Point((int)((1.0*width/GRID_WIDTH)*x), (int)((1.0*height/GRID_HEIGHT)*y));

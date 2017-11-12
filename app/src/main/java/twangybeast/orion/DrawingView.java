@@ -3,6 +3,7 @@ package twangybeast.orion;
 
 import android.content.*;
 import android.graphics.*;
+import android.graphics.drawable.shapes.OvalShape;
 import android.view.*;
 import java.util.*;
 
@@ -82,7 +83,7 @@ public class DrawingView extends View
         int px = (int) (planetPosition.x + planetRadius*2);
         int py = (int) (planetPosition.y + planetRadius);
 
-        int backwards = (planetPosition.x + cw + 30 > width) ? -1 : 1;
+        int backwards = (planetPosition.x + cw + 10 > width) ? -1 : 1;
         if(backwards < 0) {
             px = planetPosition.x;
         }
@@ -112,9 +113,18 @@ public class DrawingView extends View
 
     public void drawPlanet(Canvas canvas, Paint paint, Planet planet, int dx, int dy)
     {
-        paint.setColor(planet.getColor());
         Point p = Config.getScreenCoordinates(planet.getPosition().x, planet.getPosition().y, width, height);
-        canvas.drawCircle(p.x+Config.getCellWidth(width)/2, p.y+Config.getCellHeight(height)/2, (int)(Config.getPlanetDiameter(width, height)/2), paint);
+        float cx = p.x+Config.getCellWidth(width)/2;
+        float cy = p.y+Config.getCellHeight(height)/2;
+        float r = Config.getPlanetDiameter(width, height)/2 + 2;
+        RectF outerLine = new RectF(cx - r, cy - r, cx + r, cy + r);
+
+        paint.setColor(planet.getColor());
+        paint.setStyle(Paint.Style.STROKE);
+        canvas.drawArc(outerLine, 0, 360, true, paint);
+        paint.setStyle(Paint.Style.FILL);
+
+        canvas.drawCircle(cx, cy, (int) r - 15, paint);
 
     }
     public void drawTurn(Canvas canvas, Paint paint)
