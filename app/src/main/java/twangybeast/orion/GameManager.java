@@ -15,17 +15,19 @@ public class GameManager
     public int turn = 0;
     public int round = 1;
     public static final int planetNum = 7;
-    public static final int playerNum = 3;
+    public static int playerNum = 3;
     public Planet[] planets;
     public Player[] players;
     public Planet hoveredPlanet = null;
     public Planet selectedPlanet = null;
+
     public ScienceManagerActivity sma;
     public ProductionManagerActivity pma;
     public List<Science> sciences;
     public AttackEvent ae;
-    public GameManager(Resources res)
+    public GameManager(Resources res, int numOfPlayers)
     {
+        playerNum = numOfPlayers;
         planets = new Planet[planetNum];
         players = new Player[playerNum];
         generatePlanets();
